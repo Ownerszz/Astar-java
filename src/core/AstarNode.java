@@ -10,6 +10,7 @@ public class AstarNode extends AstarGridSpot {
     private int cost;
     private AstarGridSpot end;
     private int heuristic;
+    private int obstacleValue;
     public ArrayList<AstarNode> neighbors = new ArrayList<>();
 
     public AstarNode(int x, int y, int cost, AstarGridSpot end) {

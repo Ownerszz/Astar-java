@@ -3,16 +3,13 @@ package core.Grid;
 public class AstarGridSpot {
     private int x;
     private int y;
-    private int obstacleValue;
+
 
     public AstarGridSpot(int x,int y){
-        new  AstarGridSpot(x,y,0);
+       this.x = x;
+       this.y = y;
     }
-    public AstarGridSpot(int x, int y, int obstacleValue){
-        this.x = x;
-        this.y = y;
-        this.obstacleValue = obstacleValue;
-    }
+
 
     public int getX() {
         return x;
@@ -24,9 +21,7 @@ public class AstarGridSpot {
 
 
 
-    public int getObstacleValue() {
-        return obstacleValue;
-    }
+
     @Override
     public boolean equals(Object obj) {
         //Check if nodes are in same position in the grid.
