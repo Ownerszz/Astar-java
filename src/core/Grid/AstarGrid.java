@@ -13,6 +13,9 @@ public class AstarGrid {
         this.grid = grid.stream().map(u -> u.toArray(new AstarGridSpot[grid.size()])).toArray(AstarGridSpot[][]::new);
     }
 
+    public AstarGridSpot getSpot(int x, int y){
+
+    }
 
     public static <T> AstarGrid convert2DArrayListToGrid(ArrayList<ArrayList<T>> inputList){
         throw new NotImplementedException();

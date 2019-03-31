@@ -22,7 +22,15 @@ public class AstarGridSpot {
         return y;
     }
 
+
+
     public int getObstacleValue() {
         return obstacleValue;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        //Check if nodes are in same position in the grid.
+        AstarGridSpot in = (AstarGridSpot) obj;
+        return x == in.getX() && y == in.getY();
     }
 }
