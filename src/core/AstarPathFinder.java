@@ -1,7 +1,9 @@
 package core;
 
-import core.CustomExceptions.AstarPathNothFoundException;
+import core.CustomExceptions.AstarPathNotFoundException;
 import core.Grid.AstarGrid;
+import core.Plot.AstarPlot;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
@@ -13,17 +15,22 @@ public class AstarPathFinder {
     private ArrayList<AstarNode> openSet;
     private ArrayList<AstarNode> closedSet;
     private AstarGrid grid;
+    private boolean pathFound;
 
     public AstarPathFinder(AstarNode start, AstarNode end, AstarGrid grid){
         this.start = start;
         this.end = end;
-        optimalPath = new ArrayList<>();
+        this.optimalPath = new ArrayList<>();
+        this.openSet = new ArrayList<>();
+        this.closedSet = new ArrayList<>();
         this.grid = grid;
+
     }
 
-    public void findPath(Predicate<AstarNode> conditionForAddingNeighbors) throws AstarPathNothFoundException {
+    public void findPath(Predicate<AstarNode> conditionForAddingNeighbors) throws AstarPathNotFoundException {
         //TODO: finish this
         openSet.add(start);
+        start.setPreviousNode(start);
         while (!openSet.isEmpty()){
             AstarNode currentNode = openSet.get(0);
             for (AstarNode node: openSet) {
@@ -32,23 +39,38 @@ public class AstarPathFinder {
                 }
             }
             currentNode.calculateCost(0,end);
-            currentNode.addNeighbors(grid,end,openSet,closedSet,conditionForAddingNeighbors);
             if (currentNode.equals(end)){
 
+                pathFound =true;
                 return;
             }
-            openSet.remove(currentNode);
             closedSet.add(currentNode);
+            currentNode.addNeighbors(grid,end,openSet,closedSet,conditionForAddingNeighbors);
+            openSet.remove(currentNode);
+
             for (AstarNode neighbor : currentNode.neighbors) {
                 if (!openSet.contains(neighbor) && !closedSet.contains(neighbor)){
+                    neighbor.setPreviousNode(currentNode);
                     openSet.add(neighbor);
                 }
             }
         }
-        throw new AstarPathNothFoundException();
+        throw new AstarPathNotFoundException();
     }
 
-    public ArrayList<AstarNode> getOptimalPath() {
-        return optimalPath;
+    public ArrayList<AstarNode> getOptimalPath() throws AstarPathNotFoundException {
+        if (pathFound){
+            AstarNode prev = end;
+            optimalPath.add(prev);
+            while (prev.getPreviousNode() != prev){
+                prev = prev.getPreviousNode();
+                optimalPath.add(prev);
+            }
+
+            return optimalPath;
+        }
+        throw new AstarPathNotFoundException();
     }
+
+
 }
