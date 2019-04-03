@@ -3,28 +3,33 @@ package core;
 import core.Grid.AstarGrid;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class AstarNode {
     private int x;
     private int y;
-    private int cost;
+    private long cost;
     private AstarNode previousNode;
-    private int heuristic;
+    private long heuristic;
     private int obstacleValue;
     public ArrayList<AstarNode> neighbors = new ArrayList<>();
+
+
 
     public AstarNode(int x, int y, int obstacleValue) {
         this.x = x;
         this.y = y;
         this.obstacleValue = obstacleValue;
     }
-    public void calculateCost(int costUntilNow, AstarNode end){
-        this.heuristic = Math.abs(x - end.getX()) + Math.abs(y - end.getY());
+
+
+    public void calculateCost(long costUntilNow, AstarNode end){
+        this.heuristic = Double.doubleToLongBits(Math.sqrt(Math.abs(x - end.getX())^2 + Math.abs(y - end.getY())^2));
         this.cost = costUntilNow + 1 + heuristic;
     }
 
-    public int getHeuristic() {
+    public long getHeuristic() {
         return heuristic;
     }
 
@@ -40,7 +45,7 @@ public class AstarNode {
         return y;
     }
 
-    public int getCost() {
+    public long getCost() {
         return cost;
     }
 
@@ -55,30 +60,35 @@ public class AstarNode {
     @Override
     public boolean equals(Object obj) {
         AstarNode o = (AstarNode) obj;
-        boolean test = x == o.x && y == o.y;
-        return  x == o.x && y == o.y;
+        return  (x == o.x) && (y == o.y);
     }
 
-    public void addNeighbors(AstarGrid grid, AstarNode end , ArrayList<AstarNode> openSet, ArrayList<AstarNode> closedSet, Predicate<AstarNode> conditionToAdd) {
+    public void addNeighbors(AstarGrid grid, AstarNode end , ArrayList<AstarNode> openSet, ArrayList<AstarNode> closedSet, Predicate<AstarNode> conditionToAdd, int jumpUpTo) {
 
-            for (int i = this.getX() - 1; i < this.getX() + 2; i++) {
-                for (int j = this.getY() - 1; j < this.getY() + 2; j++) {
+            for (int i = this.getX() - jumpUpTo - 1; i < this.getX() + jumpUpTo + 1; i++) {
+                for (int j = this.getY() - jumpUpTo -1 ; j < this.getY() +jumpUpTo +1 ; j++) {
                     try {
                         AstarNode neighbor = grid.getNode(i, j);
                         neighbor.calculateCost(cost,end);
+
                         if (conditionToAdd.test(neighbor)) {
-                            if (!openSet.contains(neighbor) || !closedSet.contains(neighbor)) {
+                            if (!(openSet.contains(neighbor) || closedSet.contains(neighbor))) {
+
                                 neighbors.add(neighbor);
                             } else {
-                                AstarNode found = openSet.stream().filter(node -> node.equals(neighbor)).findFirst().get();
-
+                                if (openSet.stream().filter(node -> node.equals(neighbor)).findFirst().isPresent()){
+                                    AstarNode found = openSet.stream().filter(node -> node.equals(neighbor)).findFirst().get();
+                                    //  neighbor.calculateCost(previousNode.getCost(),end);
+                                    // found.calculateCost(previousNode.getCost(),end);
                                     if (neighbor.getCost() < found.getCost()) {
                                         found.cost = neighbor.cost;
                                         found.setPreviousNode(neighbor.previousNode);
-                                    } else {
+                                    } else if (neighbor.getCost() > found.getCost()) {
                                         neighbor.cost = found.cost;
                                         neighbor.setPreviousNode(found.previousNode);
                                     }
+                                }
+
 
 
                             }

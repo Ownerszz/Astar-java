@@ -66,7 +66,12 @@ public class AstarPlot extends BorderPane {
                     if (e.hasProperties())
                     if (GridPane.getColumnIndex(e) == node.getX() && GridPane.getRowIndex(e) == node.getY()){
                         Rectangle r = (Rectangle)e;
-                        r.setFill(Color.GREEN);
+                        if (node.getObstacleValue() > 0 ) {
+                            r.setFill(Color.PURPLE);
+                        }else {
+                            r.setFill(Color.GREEN);
+                        }
+
                     }
                 }
             }

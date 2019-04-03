@@ -18,7 +18,7 @@ import java.util.Random;
 public class SimpleExample extends Application {
     private static final int COLS=35;
     private static final int ROWS=35;
-    private static final int OBSTACLE_CHANCE=100;
+    private static final int OBSTACLE_CHANCE=10;
     private static Random random = new Random();
 
     @Override
@@ -28,8 +28,14 @@ public class SimpleExample extends Application {
             grid.add(new ArrayList<>());
             for (int j = 0; j < ROWS ; j++) {
                 AstarNode node = new AstarNode(i,j,0);
-                if (random.nextInt(100) < OBSTACLE_CHANCE && (i != 0 && i != COLS-1)&& (j!= 0 && j != ROWS-1)){
-                    node = new AstarNode(i,j, 999);
+                if (random.nextInt(100) < OBSTACLE_CHANCE){
+                    if (i ==0 && j ==0){
+                    }else if (i == COLS-1 && j == ROWS-1){
+
+                    }else {
+                        node = new AstarNode(i,j, random.nextInt(10));
+                    }
+
                 }
                 grid.get(i).add(node);
             }
@@ -37,7 +43,7 @@ public class SimpleExample extends Application {
         AstarGrid astarGrid = new AstarGrid(grid);
         AstarPathFinder pathFinder = new AstarPathFinder(astarGrid.getNode(0,0),astarGrid.getNode(ROWS-1,COLS-1),astarGrid);
         try {
-            pathFinder.findPath((node) -> node.getObstacleValue() == 0 );
+            pathFinder.findPath( node -> node.getObstacleValue() ==0 ,0 );
             AstarPlot plot = new AstarPlot(astarGrid);
             plot.drawPath(pathFinder);
             primaryStage.setMaximized(true);

@@ -6,6 +6,7 @@ import core.Plot.AstarPlot;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class AstarPathFinder {
@@ -27,7 +28,8 @@ public class AstarPathFinder {
 
     }
 
-    public void findPath(Predicate<AstarNode> conditionForAddingNeighbors) throws AstarPathNotFoundException {
+
+    public void findPath(Predicate<AstarNode> conditionForAddingNeighbors, int jumpUpTo) throws AstarPathNotFoundException {
         //TODO: finish this
         openSet.add(start);
         start.setPreviousNode(start);
@@ -38,14 +40,13 @@ public class AstarPathFinder {
                     currentNode = node;
                 }
             }
-            currentNode.calculateCost(0,end);
+            currentNode.calculateCost(currentNode.getPreviousNode().getCost(),end);
             if (currentNode.equals(end)){
-
                 pathFound =true;
                 return;
             }
             closedSet.add(currentNode);
-            currentNode.addNeighbors(grid,end,openSet,closedSet,conditionForAddingNeighbors);
+            currentNode.addNeighbors(grid,end,openSet,closedSet,conditionForAddingNeighbors,jumpUpTo);
             openSet.remove(currentNode);
 
             for (AstarNode neighbor : currentNode.neighbors) {
@@ -62,7 +63,7 @@ public class AstarPathFinder {
         if (pathFound){
             AstarNode prev = end;
             optimalPath.add(prev);
-            while (prev.getPreviousNode() != prev){
+            while (prev != start){
                 prev = prev.getPreviousNode();
                 optimalPath.add(prev);
             }
