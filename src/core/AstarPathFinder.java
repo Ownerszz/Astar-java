@@ -35,6 +35,7 @@ public class AstarPathFinder {
         start.setPreviousNode(start);
         while (!openSet.isEmpty()){
             AstarNode currentNode = openSet.get(0);
+            currentNode.calculateCost(currentNode.getPreviousNode().getCost(),end);
             for (AstarNode node: openSet) {
                 if (node.getCost() < currentNode.getCost()){
                     currentNode = node;
