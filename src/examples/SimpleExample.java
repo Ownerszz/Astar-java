@@ -2,6 +2,7 @@ package examples;
 
 import core.AstarNode;
 import core.AstarPathFinder;
+import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.Grid.AstarGrid;
 import core.Plot.AstarPlot;
@@ -12,9 +13,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class SimpleExample extends Application {
-    private static final int COLS = 35;
-    private static final int ROWS = 35;
-    private static final int OBSTACLE_CHANCE = 30;
+    private static final int COLS = 160;
+    private static final int ROWS = 90;
+    private static final int OBSTACLE_CHANCE = 50;
     private static Random random = new Random();
 
     @Override
@@ -35,9 +36,11 @@ public class SimpleExample extends Application {
                 grid.get(i).add(node);
             }
         }
-        AstarGrid astarGrid = new AstarGrid(grid);
-        AstarPathFinder pathFinder = new AstarPathFinder(astarGrid.getNode(0, 0), astarGrid.getNode(ROWS - 1, COLS - 1), astarGrid);
+
+
         try {
+            AstarGrid astarGrid = new AstarGrid(grid);
+            AstarPathFinder pathFinder = new AstarPathFinder(astarGrid.getNode(0, 0), astarGrid.getNode(COLS-1, ROWS-1), astarGrid);
             pathFinder.findPath(node -> node.getObstacleValue() == 0, 0);
             AstarPlot plot = new AstarPlot(astarGrid);
             plot.drawPath(pathFinder);
@@ -47,6 +50,8 @@ public class SimpleExample extends Application {
 
         } catch (AstarPathNotFoundException APNFE) {
             System.out.println("Path not found");
+        }catch (AstarNodeNotOnGridException ANNOGE){
+
         }
     }
 

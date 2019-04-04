@@ -1,5 +1,6 @@
 package core;
 
+import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.Grid.AstarGrid;
 
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ public class AstarNode {
     @Override
     public boolean equals(Object obj) {
         AstarNode o = (AstarNode) obj;
+        if (o == null) return false;
         return (x == o.x) && (y == o.y);
     }
 
@@ -68,9 +70,12 @@ public class AstarNode {
         for (int i = this.getX() - 1 - jumpUpTo; i < this.getX() + 2 + jumpUpTo; i++) {
             for (int j = this.getY() - 1 - jumpUpTo; j < this.getY() + 2 + jumpUpTo; j++) {
                 try {
+                    if (j == 5){
+                        int a = 0;
+                    }
                     AstarNode neighbor = grid.getNode(i, j);
-                    neighbor.calculateCost(cost, end);
 
+                    neighbor.calculateCost(cost, end);
                     if (conditionToAdd.test(neighbor)) {
                         if (!(openSet.contains(neighbor) || closedSet.contains(neighbor))) {
                             neighbors.add(neighbor);
@@ -94,6 +99,8 @@ public class AstarNode {
                         closedSet.add(neighbor);
                     }
                 } catch (ArrayIndexOutOfBoundsException AIOOBE) {
+
+                } catch (AstarNodeNotOnGridException ANNOGE){
 
                 }
 
