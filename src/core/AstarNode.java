@@ -73,7 +73,6 @@ public class AstarNode {
 
                         if (conditionToAdd.test(neighbor)) {
                             if (!(openSet.contains(neighbor) || closedSet.contains(neighbor))) {
-
                                 neighbors.add(neighbor);
                             } else {
                                 if (openSet.stream().filter(node -> node.equals(neighbor)).findFirst().isPresent()){
@@ -92,6 +91,8 @@ public class AstarNode {
 
 
                             }
+                        } else {
+                            closedSet.add(neighbor);
                         }
                     } catch (ArrayIndexOutOfBoundsException AIOOBE){
 
