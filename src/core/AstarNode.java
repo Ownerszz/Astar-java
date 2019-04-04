@@ -24,6 +24,9 @@ public class AstarNode {
 
     }
 
+    public void setObstacleValue(int obstacleValue) {
+        this.obstacleValue = obstacleValue;
+    }
 
     public void calculateCost(int costUntilNow, AstarNode end) {
         this.heuristic = Math.abs(x - end.getX()) + Math.abs(y - end.getY());
@@ -70,9 +73,6 @@ public class AstarNode {
         for (int i = this.getX() - 1 - jumpUpTo; i < this.getX() + 2 + jumpUpTo; i++) {
             for (int j = this.getY() - 1 - jumpUpTo; j < this.getY() + 2 + jumpUpTo; j++) {
                 try {
-                    if (j == 5){
-                        int a = 0;
-                    }
                     AstarNode neighbor = grid.getNode(i, j);
 
                     neighbor.calculateCost(cost, end);

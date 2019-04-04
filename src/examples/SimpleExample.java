@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class SimpleExample extends Application {
-    private static final int COLS = 160;
+    private static final int COLS = 40;
     private static final int ROWS = 90;
-    private static final int OBSTACLE_CHANCE = 50;
+    private static final int OBSTACLE_CHANCE = 30;
     private static Random random = new Random();
 
     @Override
