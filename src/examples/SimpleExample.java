@@ -31,7 +31,6 @@ public class SimpleExample extends Application {
                     } else {
                         node = new AstarNode(i, j, 999);
                     }
-
                 }
                 grid.get(i).add(node);
             }
