@@ -5,14 +5,19 @@ import core.AstarPathFinder;
 import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.Grid.AstarGrid;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 /*
+Standard class. You can make your own class for doing this.
 This class draws the 2D grid.
  */
 public class AstarPlot extends BorderPane {
@@ -29,7 +34,7 @@ public class AstarPlot extends BorderPane {
     /*
     Method drawPath:
     Method that gets called for drawing the grid and the path.
-                                                                Returns:    - Scene
+                                                                Returns:    - A Scene made from an instance of AstarPlot
 
                                                                 Parameters: - A AstarPathFinder instance
      */
@@ -45,10 +50,24 @@ public class AstarPlot extends BorderPane {
         for (AstarNode[] x : grid.getGrid()) {
             for (AstarNode y : x) {
                 try {
+                    final int _indexX = xIndex;
+                    final int _indexY = yIndex;
                     Rectangle rectangle = new Rectangle();
                     rectangle.setHeight(10);
                     rectangle.setWidth(10);
                     rectangle.setStroke(Color.BLACK);
+                    rectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            try {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION,grid.getNode(_indexX,_indexY).toString());
+                                alert.show();
+                            }catch (AstarNodeNotOnGridException ANNOGE){
+
+                            }
+
+                        }
+                    });
                     if (grid.getNode(xIndex, yIndex).getObstacleValue() > 0) {
                         rectangle.setFill(Color.BLACK);
                     } else {
