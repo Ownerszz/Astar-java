@@ -7,7 +7,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
-
+/*
+This class contains the nodes. This class is for the 2D grids
+ */
 public class AstarGrid {
     private core.AstarNode[][] grid;
 

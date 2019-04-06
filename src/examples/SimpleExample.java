@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class SimpleExample extends Application {
-    private static final int COLS = 40;
+    private static final int COLS = 160;
     private static final int ROWS = 90;
     private static final int OBSTACLE_CHANCE = 30;
     private static Random random = new Random();
@@ -43,9 +43,9 @@ public class SimpleExample extends Application {
             AstarPathFinder pathFinder = new AstarPathFinder(astarGrid.getNode(0, 0), astarGrid.getNode(COLS-1, ROWS-1), astarGrid);
             pathFinder.findPath(node -> node.getObstacleValue() == 0, 0);
             AstarPlot plot = new AstarPlot(astarGrid);
-            plot.drawPath(pathFinder);
             primaryStage.setMaximized(true);
             primaryStage.setScene(plot.drawPath(pathFinder));
+            primaryStage.titleProperty().setValue(String.format("Total nodes in path: %d",pathFinder.getOptimalPath().size()));
             primaryStage.show();
 
         } catch (AstarPathNotFoundException APNFE) {

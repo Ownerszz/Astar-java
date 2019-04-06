@@ -6,27 +6,36 @@ import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.Grid.AstarGrid;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+/*
+This class draws the 2D grid.
+ */
 public class AstarPlot extends BorderPane {
     private AstarGrid grid;
     private GridPane gridPane;
-
+    /*
+    Constructor:
+    New instance of AstarPlot will initialise with: - A AstarGrid
+     */
     public AstarPlot(AstarGrid grid) {
         super();
         this.grid = grid;
     }
+    /*
+    Method drawPath:
+    Method that gets called for drawing the grid and the path.
+                                                                Returns:    - Scene
 
-
+                                                                Parameters: - A AstarPathFinder instance
+     */
     public Scene drawPath(AstarPathFinder pathFinder) {
         gridPane = new GridPane();
+        this.getChildren().add(gridPane);
         gridPane.setMinSize(400, 200);
         gridPane.setPadding(new Insets(10, 10, 10, 10));
 
@@ -75,7 +84,7 @@ public class AstarPlot extends BorderPane {
 
         }
 
-        return new Scene(gridPane);
+        return new Scene(this);
     }
 
 
