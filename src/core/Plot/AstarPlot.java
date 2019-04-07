@@ -5,12 +5,16 @@ import core.AstarPathFinder;
 import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.Grid.AstarGrid;
+import core.interfaces.IAstarGrid;
+import core.interfaces.IAstarNode;
+import core.interfaces.IAstarPathFinder;
+import core.interfaces.IAstarPlot;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.input.KeyEvent;
+
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -20,14 +24,14 @@ import javafx.scene.shape.Rectangle;
 Standard class. You can make your own class for doing this.
 This class draws the 2D grid.
  */
-public class AstarPlot extends BorderPane {
-    private AstarGrid grid;
+public class AstarPlot extends BorderPane implements IAstarPlot {
+    private IAstarGrid grid;
     private GridPane gridPane;
     /*
     Constructor:
     New instance of AstarPlot will initialise with: - A AstarGrid
      */
-    public AstarPlot(AstarGrid grid) {
+    public AstarPlot(IAstarGrid grid) {
         super();
         this.grid = grid;
     }
@@ -38,7 +42,8 @@ public class AstarPlot extends BorderPane {
 
                                                                 Parameters: - A AstarPathFinder instance
      */
-    public Scene drawPath(AstarPathFinder pathFinder) {
+    @Override
+    public Scene drawPath(IAstarPathFinder pathFinder) {
         gridPane = new GridPane();
         this.getChildren().add(gridPane);
         gridPane.setMinSize(400, 200);
@@ -47,8 +52,8 @@ public class AstarPlot extends BorderPane {
         gridPane.setGridLinesVisible(true);
         int xIndex = 0;
         int yIndex = 0;
-        for (AstarNode[] x : grid.getGrid()) {
-            for (AstarNode y : x) {
+        for (IAstarNode[] x : grid.getGrid()) {
+            for (IAstarNode y : x) {
                 try {
                     final int _indexX = xIndex;
                     final int _indexY = yIndex;
@@ -85,7 +90,7 @@ public class AstarPlot extends BorderPane {
             xIndex++;
         }
         try {
-            for (AstarNode node : pathFinder.getOptimalPath()) {
+            for (IAstarNode node : pathFinder.getOptimalPath()) {
                 for (Node e : gridPane.getChildren()) {
                     if (e.hasProperties())
                         if (GridPane.getColumnIndex(e) == node.getX() && GridPane.getRowIndex(e) == node.getY()) {

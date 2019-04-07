@@ -6,6 +6,10 @@ import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.Grid.AstarGrid;
 import core.Plot.AstarPlot;
+import core.interfaces.IAstarGrid;
+import core.interfaces.IAstarNode;
+import core.interfaces.IAstarPathFinder;
+import core.interfaces.IAstarPlot;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -20,7 +24,7 @@ public class SimpleExample extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        ArrayList<ArrayList<AstarNode>> grid = new ArrayList<>();
+        ArrayList<ArrayList<IAstarNode>> grid = new ArrayList<>();
         for (int i = 0; i < COLS; i++) {
             grid.add(new ArrayList<>());
             for (int j = 0; j < ROWS; j++) {
@@ -39,10 +43,10 @@ public class SimpleExample extends Application {
 
 
         try {
-            AstarGrid astarGrid = new AstarGrid(grid);
-            AstarPathFinder pathFinder = new AstarPathFinder(astarGrid.getNode(0, 0), astarGrid.getNode(COLS-1, ROWS-1), astarGrid);
+            IAstarGrid astarGrid = new AstarGrid(grid);
+            IAstarPathFinder pathFinder = new AstarPathFinder(astarGrid.getNode(0, 0), astarGrid.getNode(COLS-1, ROWS-1), astarGrid);
             pathFinder.findPath(node -> node.getObstacleValue() == 0, 0);
-            AstarPlot plot = new AstarPlot(astarGrid);
+            IAstarPlot plot = new AstarPlot(astarGrid);
             primaryStage.setMaximized(true);
             primaryStage.setScene(plot.drawPath(pathFinder));
             primaryStage.titleProperty().setValue(String.format("Total nodes in path: %d",pathFinder.getOptimalPath().size()));

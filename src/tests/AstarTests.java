@@ -4,6 +4,9 @@ import core.AstarPathFinder;
 import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.Grid.AstarGrid;
+import core.interfaces.IAstarGrid;
+import core.interfaces.IAstarNode;
+import core.interfaces.IAstarPathFinder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,10 +15,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class AstarTests {
-    private AstarGrid grid;
-    private AstarPathFinder pathFinder;
-    private AstarNode start;
-    private AstarNode end;
+    private IAstarGrid grid;
+    private IAstarPathFinder pathFinder;
+    private IAstarNode start;
+    private IAstarNode end;
     private Random random = new Random();
     private boolean oneTimeSetUp;
 
@@ -25,7 +28,7 @@ public class AstarTests {
         if (!oneTimeSetUp) {
             int cols = 10;
             int rows = 10;
-            ArrayList<ArrayList<AstarNode>> grid = new ArrayList<>();
+            ArrayList<ArrayList<IAstarNode>> grid = new ArrayList<>();
             for (int i = 0; i < cols; i++) {
                 grid.add(new ArrayList<>());
                 for (int j = 0; j < rows; j++) {
@@ -72,14 +75,14 @@ public class AstarTests {
 
     @Test (expected = AstarNodeNotOnGridException.class)
     public void TestNodeNotOnGrid() throws AstarNodeNotOnGridException{
-            AstarNode notValid = grid.getNode(999,999);
+            IAstarNode notValid = grid.getNode(999,999);
             Assert.fail( String.format("Node (x: %d, y: %d) is not on the grid!!!", notValid.getX(),notValid.getY()));
     }
 
     @Test (expected = AstarPathNotFoundException.class)
     public void TestPathNotFound() throws AstarPathNotFoundException{
-        for (AstarNode[] col: grid.getGrid()) {
-            for (AstarNode node: col) {
+        for (IAstarNode[] col: grid.getGrid()) {
+            for (IAstarNode node: col) {
                 if (node != null)
                 node.setObstacleValue(999);
             }

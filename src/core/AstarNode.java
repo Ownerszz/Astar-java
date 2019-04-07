@@ -1,17 +1,19 @@
 package core;
 
 import core.CustomExceptions.AstarNodeNotOnGridException;
-import core.Grid.AstarGrid;
+
+import core.interfaces.IAstarGrid;
+import core.interfaces.IAstarNode;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-public class AstarNode {
-    public ArrayList<AstarNode> neighbors = new ArrayList<>();
+public class AstarNode implements IAstarNode {
+    public ArrayList<IAstarNode> neighbors = new ArrayList<>();
     private int x;
     private int y;
     private int cost;
-    private AstarNode previousNode;
+    private IAstarNode previousNode;
     private int heuristic;
     private int obstacleValue;
 
@@ -24,11 +26,19 @@ public class AstarNode {
 
     }
 
+    @Override
+    public void setCost(int cost){
+        this.cost = cost;
+    }
+    @Override
     public void setObstacleValue(int obstacleValue) {
         this.obstacleValue = obstacleValue;
     }
-
-    public void calculateCost(int costUntilNow, AstarNode end) {
+    public ArrayList<IAstarNode> getNeighbors(){
+        return neighbors;
+    }
+    @Override
+    public void calculateCost(int costUntilNow, IAstarNode end) {
         this.heuristic = Math.abs(x - end.getX()) + Math.abs(y - end.getY());
         this.cost = costUntilNow + heuristic;
     }
@@ -36,28 +46,31 @@ public class AstarNode {
     public long getHeuristic() {
         return heuristic;
     }
-
+    @Override
     public int getObstacleValue() {
         return obstacleValue;
     }
-
+    @Override
     public int getX() {
         return x;
     }
-
+    @Override
     public int getY() {
         return y;
     }
 
+    @Override
     public int getCost() {
         return cost;
     }
 
-    public AstarNode getPreviousNode() {
+    @Override
+    public IAstarNode getPreviousNode() {
         return previousNode;
     }
 
-    public void setPreviousNode(AstarNode previousNode) {
+    @Override
+    public void setPreviousNode(IAstarNode previousNode) {
         this.previousNode = previousNode;
     }
 
@@ -68,28 +81,28 @@ public class AstarNode {
         return (x == o.x) && (y == o.y);
     }
 
-    public void addNeighbors(AstarGrid grid, AstarNode end, ArrayList<AstarNode> openSet, ArrayList<AstarNode> closedSet, Predicate<AstarNode> conditionToAdd, int jumpUpTo) {
-
+    @Override
+    public void addNeighbors(IAstarGrid grid, IAstarNode end, ArrayList<IAstarNode> openSet, ArrayList<IAstarNode> closedSet, Predicate<IAstarNode> conditionToAdd, int jumpUpTo) {
         for (int i = this.getX() - 1 - jumpUpTo; i < this.getX() + 2 + jumpUpTo; i++) {
             for (int j = this.getY() - 1 - jumpUpTo; j < this.getY() + 2 + jumpUpTo; j++) {
                 try {
-                    AstarNode neighbor = grid.getNode(i, j);
+                    IAstarNode neighbor = grid.getNode(i, j);
 
-                    neighbor.calculateCost(cost, end);
+                    neighbor.calculateCost(this.getCost(), end);
                     if (conditionToAdd.test(neighbor)) {
                         if (!(openSet.contains(neighbor) || closedSet.contains(neighbor))) {
                             neighbors.add(neighbor);
                         } else {
                             if (openSet.stream().filter(node -> node.equals(neighbor)).findFirst().isPresent()) {
-                                AstarNode found = openSet.stream().filter(node -> node.equals(neighbor)).findFirst().get();
+                                IAstarNode found = openSet.stream().filter(node -> node.equals(neighbor)).findFirst().get();
                                 //  neighbor.calculateCost(previousNode.getCost(),end);
                                 // found.calculateCost(previousNode.getCost(),end);
                                 if (neighbor.getCost() < found.getCost()) {
-                                    found.cost = neighbor.cost;
-                                    found.setPreviousNode(neighbor.previousNode);
+                                    found.setCost(neighbor.getCost());
+                                    found.setPreviousNode(neighbor.getPreviousNode());
                                 } else if (neighbor.getCost() > found.getCost()) {
-                                    neighbor.cost = found.cost;
-                                    neighbor.setPreviousNode(found.previousNode);
+                                    neighbor.setCost(found.getCost());
+                                    neighbor.setPreviousNode(found.getPreviousNode());
                                 }
                             }
 
