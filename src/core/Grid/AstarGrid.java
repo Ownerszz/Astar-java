@@ -1,6 +1,5 @@
 package core.Grid;
 
-import core.AstarNode;
 import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.interfaces.IAstarGrid;
 import core.interfaces.IAstarNode;
@@ -9,6 +8,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+
 /*
 This class contains the nodes. This class is for the 2D grids
  */
@@ -29,7 +29,7 @@ public class AstarGrid implements IAstarGrid {
 
     @Override
     public IAstarNode getNode(int x, int y) throws AstarNodeNotOnGridException {
-        if (x > Arrays.stream(grid).filter(Objects::nonNull).count() -1|| y > Arrays.stream(grid[0]).filter(Objects::nonNull).count() -1){
+        if (x > Arrays.stream(grid).filter(Objects::nonNull).count() - 1 || y > Arrays.stream(grid[0]).filter(Objects::nonNull).count() - 1) {
             throw new AstarNodeNotOnGridException();
         }
         return grid[x][y];

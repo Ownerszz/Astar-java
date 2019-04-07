@@ -1,6 +1,5 @@
 package core.interfaces;
 
-import core.AstarNode;
 import core.CustomExceptions.AstarPathNotFoundException;
 
 import java.util.ArrayList;

@@ -1,10 +1,7 @@
 package core.Plot;
 
-import core.AstarNode;
-import core.AstarPathFinder;
 import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
-import core.Grid.AstarGrid;
 import core.interfaces.IAstarGrid;
 import core.interfaces.IAstarNode;
 import core.interfaces.IAstarPathFinder;
@@ -14,12 +11,12 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
 /*
 Standard class. You can make your own class for doing this.
 This class draws the 2D grid.
@@ -27,6 +24,7 @@ This class draws the 2D grid.
 public class AstarPlot extends BorderPane implements IAstarPlot {
     private IAstarGrid grid;
     private GridPane gridPane;
+
     /*
     Constructor:
     New instance of AstarPlot will initialise with: - A AstarGrid
@@ -35,6 +33,7 @@ public class AstarPlot extends BorderPane implements IAstarPlot {
         super();
         this.grid = grid;
     }
+
     /*
     Method drawPath:
     Method that gets called for drawing the grid and the path.
@@ -65,9 +64,9 @@ public class AstarPlot extends BorderPane implements IAstarPlot {
                         @Override
                         public void handle(MouseEvent event) {
                             try {
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION,grid.getNode(_indexX,_indexY).toString());
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION, grid.getNode(_indexX, _indexY).toString());
                                 alert.show();
-                            }catch (AstarNodeNotOnGridException ANNOGE){
+                            } catch (AstarNodeNotOnGridException ANNOGE) {
 
                             }
 
@@ -80,7 +79,7 @@ public class AstarPlot extends BorderPane implements IAstarPlot {
                     }
 
                     gridPane.add(rectangle, xIndex, yIndex);
-                }catch (AstarNodeNotOnGridException ANNOGE){
+                } catch (AstarNodeNotOnGridException ANNOGE) {
 
                 }
 

@@ -1,7 +1,6 @@
 package core;
 
 import core.CustomExceptions.AstarPathNotFoundException;
-import core.Grid.AstarGrid;
 import core.interfaces.IAstarGrid;
 import core.interfaces.IAstarNode;
 import core.interfaces.IAstarPathFinder;
@@ -20,14 +19,15 @@ public class AstarPathFinder implements IAstarPathFinder {
     private ArrayList<IAstarNode> closedSet;
     private IAstarGrid grid;
     private boolean pathFound;
-/*
-Constructor:
-New instance of AstarPathFinder will initialise with:   - A start AstarNode
-                                                        - A end AstarNode
-                                                        - A AstarGrid were the pathfinding has to happen
-                                                        - A new ArrayList (openSet) containing the nodes that we want to evaluate (is empty at start)
-                                                        - A new ArrayList (closedSet) containing the nodes that we already evaluated (is empty at start)
- */
+
+    /*
+    Constructor:
+    New instance of AstarPathFinder will initialise with:   - A start AstarNode
+                                                            - A end AstarNode
+                                                            - A AstarGrid were the pathfinding has to happen
+                                                            - A new ArrayList (openSet) containing the nodes that we want to evaluate (is empty at start)
+                                                            - A new ArrayList (closedSet) containing the nodes that we already evaluated (is empty at start)
+     */
     public AstarPathFinder(IAstarNode start, IAstarNode end, IAstarGrid grid) {
         this.start = start;
         this.end = end;
@@ -36,14 +36,14 @@ New instance of AstarPathFinder will initialise with:   - A start AstarNode
         this.grid = grid;
     }
 
-/*
-Method findPath:
-Method that gets called for the pathfinding.
-                                            Parameters: - Predicate that defines the condition for adding the neighbors
-                                                        - jumpUpTo that defines how far the nodes for the pathfinding can be.
+    /*
+    Method findPath:
+    Method that gets called for the pathfinding.
+                                                Parameters: - Predicate that defines the condition for adding the neighbors
+                                                            - jumpUpTo that defines how far the nodes for the pathfinding can be.
 
-                                            Throws:     - AstarPathNotFoundException
- */
+                                                Throws:     - AstarPathNotFoundException
+     */
     @Override
     public void findPath(Predicate<IAstarNode> conditionForAddingNeighbors, int jumpUpTo) throws AstarPathNotFoundException {
         //TODO: finish this

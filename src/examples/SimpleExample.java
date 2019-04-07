@@ -44,17 +44,17 @@ public class SimpleExample extends Application {
 
         try {
             IAstarGrid astarGrid = new AstarGrid(grid);
-            IAstarPathFinder pathFinder = new AstarPathFinder(astarGrid.getNode(0, 0), astarGrid.getNode(COLS-1, ROWS-1), astarGrid);
+            IAstarPathFinder pathFinder = new AstarPathFinder(astarGrid.getNode(0, 0), astarGrid.getNode(COLS - 1, ROWS - 1), astarGrid);
             pathFinder.findPath(node -> node.getObstacleValue() == 0, 0);
             IAstarPlot plot = new AstarPlot(astarGrid);
             primaryStage.setMaximized(true);
             primaryStage.setScene(plot.drawPath(pathFinder));
-            primaryStage.titleProperty().setValue(String.format("Total nodes in path: %d",pathFinder.getOptimalPath().size()));
+            primaryStage.titleProperty().setValue(String.format("Total nodes in path: %d", pathFinder.getOptimalPath().size()));
             primaryStage.show();
 
         } catch (AstarPathNotFoundException APNFE) {
             System.out.println("Path not found");
-        }catch (AstarNodeNotOnGridException ANNOGE){
+        } catch (AstarNodeNotOnGridException ANNOGE) {
 
         }
     }

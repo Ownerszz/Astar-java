@@ -1,6 +1,5 @@
 package core.interfaces;
 
-import core.AstarPathFinder;
 import javafx.scene.Scene;
 
 public interface IAstarPlot {

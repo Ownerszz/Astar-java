@@ -1,7 +1,6 @@
 package core;
 
 import core.CustomExceptions.AstarNodeNotOnGridException;
-
 import core.interfaces.IAstarGrid;
 import core.interfaces.IAstarNode;
 
@@ -26,17 +25,10 @@ public class AstarNode implements IAstarNode {
 
     }
 
-    @Override
-    public void setCost(int cost){
-        this.cost = cost;
-    }
-    @Override
-    public void setObstacleValue(int obstacleValue) {
-        this.obstacleValue = obstacleValue;
-    }
-    public ArrayList<IAstarNode> getNeighbors(){
+    public ArrayList<IAstarNode> getNeighbors() {
         return neighbors;
     }
+
     @Override
     public void calculateCost(int costUntilNow, IAstarNode end) {
         this.heuristic = Math.abs(x - end.getX()) + Math.abs(y - end.getY());
@@ -46,14 +38,22 @@ public class AstarNode implements IAstarNode {
     public long getHeuristic() {
         return heuristic;
     }
+
     @Override
     public int getObstacleValue() {
         return obstacleValue;
     }
+
+    @Override
+    public void setObstacleValue(int obstacleValue) {
+        this.obstacleValue = obstacleValue;
+    }
+
     @Override
     public int getX() {
         return x;
     }
+
     @Override
     public int getY() {
         return y;
@@ -62,6 +62,11 @@ public class AstarNode implements IAstarNode {
     @Override
     public int getCost() {
         return cost;
+    }
+
+    @Override
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     @Override
@@ -113,7 +118,7 @@ public class AstarNode implements IAstarNode {
                     }
                 } catch (ArrayIndexOutOfBoundsException AIOOBE) {
 
-                } catch (AstarNodeNotOnGridException ANNOGE){
+                } catch (AstarNodeNotOnGridException ANNOGE) {
 
                 }
 

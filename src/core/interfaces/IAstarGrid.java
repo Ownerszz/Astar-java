@@ -1,6 +1,5 @@
 package core.interfaces;
 
-import core.AstarNode;
 import core.CustomExceptions.AstarNodeNotOnGridException;
 
 public interface IAstarGrid {
