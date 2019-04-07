@@ -1,8 +1,8 @@
 package core.Node;
 
 import core.CustomExceptions.AstarNodeNotOnGridException;
-import core.interfaces.IAstarGrid;
-import core.interfaces.IAstarNode;
+import core.Interfaces.IAstarGrid;
+import core.Interfaces.IAstarNode;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;

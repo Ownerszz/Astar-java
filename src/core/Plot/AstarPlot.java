@@ -2,10 +2,10 @@ package core.Plot;
 
 import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
-import core.interfaces.IAstarGrid;
-import core.interfaces.IAstarNode;
-import core.interfaces.IAstarPathFinder;
-import core.interfaces.IAstarPlot;
+import core.Interfaces.IAstarGrid;
+import core.Interfaces.IAstarNode;
+import core.Interfaces.IAstarPathFinder;
+import core.Interfaces.IAstarPlot;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;

@@ -1,9 +1,9 @@
 package core.PathFinding;
 
 import core.CustomExceptions.AstarPathNotFoundException;
-import core.interfaces.IAstarGrid;
-import core.interfaces.IAstarNode;
-import core.interfaces.IAstarPathFinder;
+import core.Interfaces.IAstarGrid;
+import core.Interfaces.IAstarNode;
+import core.Interfaces.IAstarPathFinder;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;
