@@ -1,4 +1,4 @@
-package core;
+package core.PathFinding;
 
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.interfaces.IAstarGrid;

@@ -1,7 +1,7 @@
 package examples;
 
-import core.AstarNode;
-import core.AstarPathFinder;
+import core.Node.AstarNode;
+import core.PathFinding.AstarPathFinder;
 import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.Grid.AstarGrid;

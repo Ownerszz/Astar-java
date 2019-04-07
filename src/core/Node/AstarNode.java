@@ -1,4 +1,4 @@
-package core;
+package core.Node;
 
 import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.interfaces.IAstarGrid;
