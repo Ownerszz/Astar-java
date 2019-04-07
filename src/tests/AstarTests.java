@@ -22,13 +22,15 @@ public class AstarTests {
     private IAstarNode end;
     private Random random = new Random();
     private boolean oneTimeSetUp;
+    private int rows;
+    private int cols;
 
 
     @Before
     public void SetUp() {
         if (!oneTimeSetUp) {
-            int cols = 10;
-            int rows = 10;
+            cols = random.nextInt(20);
+            rows = random.nextInt(20);
             ArrayList<ArrayList<IAstarNode>> grid = new ArrayList<>();
             for (int i = 0; i < cols; i++) {
                 grid.add(new ArrayList<>());
@@ -41,10 +43,10 @@ public class AstarTests {
             while (start == null || end == null) {
                 try {
                     if (start == null) {
-                        start = this.grid.getNode(random.nextInt(10) + 1, random.nextInt(10) + 1);
+                        start = this.grid.getNode(random.nextInt(cols), random.nextInt(rows));
                     }
                     if (end == null) {
-                        end = this.grid.getNode(random.nextInt(10) + 1, random.nextInt(10) + 1);
+                        end = this.grid.getNode(random.nextInt(cols), random.nextInt(rows));
                     }
                     if (start.equals(end)) {
                         start = null;
@@ -67,6 +69,10 @@ public class AstarTests {
     public void TestPathFinding() {
         try {
             pathFinder.findPath(astarNode -> astarNode.getObstacleValue() == 0, 0);
+            System.out.println("Cols: "+ cols );
+            System.out.println("Rows: "+ rows);
+            System.out.println("Start: "+start);
+            System.out.println("End: " +end);
             pathFinder.getOptimalPath().forEach(System.out::println);
             Assert.assertNotNull(pathFinder.getOptimalPath());
         } catch (AstarPathNotFoundException e) {
