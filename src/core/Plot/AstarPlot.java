@@ -64,9 +64,17 @@ public class AstarPlot extends BorderPane implements IAstarPlot {
                         @Override
                         public void handle(MouseEvent event) {
                             try {
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION, grid.getNode(_indexX, _indexY).toString());
+                                IAstarNode clickedNode = grid.getNode(_indexX, _indexY);
+                                String nodeIsInOptimalPath = new String();
+                                if (pathFinder.getOptimalPath().contains(clickedNode)){
+                                    nodeIsInOptimalPath = ". Node is in optimal path";
+                                }
+
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION, clickedNode.toString() + nodeIsInOptimalPath);
                                 alert.show();
                             } catch (AstarNodeNotOnGridException ANNOGE) {
+
+                            }catch ( AstarPathNotFoundException APNFE){
 
                             }
 
