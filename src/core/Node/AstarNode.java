@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 public class AstarNode implements IAstarNode {
-    public ArrayList<IAstarNode> neighbors = new ArrayList<>();
+    private ArrayList<IAstarNode> neighbors = new ArrayList<>();
     private int x;
     private int y;
     private int cost;
