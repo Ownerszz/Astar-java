@@ -1,7 +1,7 @@
 package core.Interfaces;
 
 import javafx.scene.Scene;
-
+import core.Interfaces.IAstarPathFinder;
 public interface IAstarPlot {
     /*
         Method drawPath:

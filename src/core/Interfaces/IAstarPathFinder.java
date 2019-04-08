@@ -1,7 +1,7 @@
 package core.Interfaces;
 
 import core.CustomExceptions.AstarPathNotFoundException;
-
+import core.Interfaces.IAstarNode;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 

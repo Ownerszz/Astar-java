@@ -100,8 +100,6 @@ public class AstarNode implements IAstarNode {
                         } else {
                             if (openSet.stream().filter(node -> node.equals(neighbor)).findFirst().isPresent()) {
                                 IAstarNode found = openSet.stream().filter(node -> node.equals(neighbor)).findFirst().get();
-                                //  neighbor.calculateCost(previousNode.getCost(),end);
-                                // found.calculateCost(previousNode.getCost(),end);
                                 if (neighbor.getCost() < found.getCost()) {
                                     found.setCost(neighbor.getCost());
                                     found.setPreviousNode(neighbor.getPreviousNode());
@@ -110,8 +108,6 @@ public class AstarNode implements IAstarNode {
                                     neighbor.setPreviousNode(found.getPreviousNode());
                                 }
                             }
-
-
                         }
                     } else {
                         closedSet.add(neighbor);

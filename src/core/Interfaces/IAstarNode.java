@@ -1,5 +1,5 @@
 package core.Interfaces;
-
+import core.Interfaces.IAstarGrid;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
