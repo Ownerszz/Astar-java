@@ -81,12 +81,12 @@ public class AstarNode implements IAstarNode {
 
     @Override
     public boolean equals(Object obj) {
-        try{
+        try {
             IAstarNode o = (IAstarNode) obj;
             if (o == null) return false;
             return (this.getX() == o.getX()) && (this.getY() == o.getY());
-        catch(ClassCastException CCE){
-            System.out.println(CCE.message);
+        }catch(ClassCastException CCE){
+            System.out.println(CCE.getMessage());
             return false;
         }    
     }
