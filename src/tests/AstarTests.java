@@ -1,14 +1,14 @@
 package tests;
 
-import Interfaces.FunctionalInterfaces.FunctionalTest;
-import Node.AstarNode;
-import PathFinding.AstarPathFinder;
 import CustomExceptions.AstarNodeNotOnGridException;
 import CustomExceptions.AstarPathNotFoundException;
 import Grid.AstarGrid;
+import Interfaces.FunctionalInterfaces.FunctionalTest;
 import Interfaces.IAstarGrid;
 import Interfaces.IAstarNode;
 import Interfaces.IAstarPathFinder;
+import Node.AstarNode;
+import PathFinding.AstarPathFinder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

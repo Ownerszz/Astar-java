@@ -1,7 +1,7 @@
 package Node;
 
-import Interfaces.FunctionalInterfaces.FunctionalTest;
 import CustomExceptions.AstarNodeNotOnGridException;
+import Interfaces.FunctionalInterfaces.FunctionalTest;
 import Interfaces.IAstarGrid;
 import Interfaces.IAstarNode;
 

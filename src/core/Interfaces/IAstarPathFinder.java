@@ -1,8 +1,8 @@
 package Interfaces;
 
-import Interfaces.FunctionalInterfaces.FunctionalTest;
 import CustomExceptions.AstarPathNotFoundException;
-import Interfaces.IAstarNode;
+import Interfaces.FunctionalInterfaces.FunctionalTest;
+
 import java.util.ArrayList;
 
 public interface IAstarPathFinder {

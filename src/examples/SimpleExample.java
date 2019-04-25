@@ -1,16 +1,16 @@
 package examples;
 
-import Interfaces.FunctionalInterfaces.FunctionalTest;
-import Node.AstarNode;
-import PathFinding.AstarPathFinder;
 import CustomExceptions.AstarNodeNotOnGridException;
 import CustomExceptions.AstarPathNotFoundException;
 import Grid.AstarGrid;
-import Plot.AstarPlot;
+import Interfaces.FunctionalInterfaces.FunctionalTest;
 import Interfaces.IAstarGrid;
 import Interfaces.IAstarNode;
 import Interfaces.IAstarPathFinder;
 import Interfaces.IAstarPlot;
+import Node.AstarNode;
+import PathFinding.AstarPathFinder;
+import Plot.AstarPlot;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

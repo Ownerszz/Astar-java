@@ -1,7 +1,7 @@
 package PathFinding;
 
-import Interfaces.FunctionalInterfaces.FunctionalTest;
 import CustomExceptions.AstarPathNotFoundException;
+import Interfaces.FunctionalInterfaces.FunctionalTest;
 import Interfaces.IAstarGrid;
 import Interfaces.IAstarNode;
 import Interfaces.IAstarPathFinder;
