@@ -1,13 +1,14 @@
 package tests;
 
-import core.Node.AstarNode;
-import core.PathFinding.AstarPathFinder;
-import core.CustomExceptions.AstarNodeNotOnGridException;
-import core.CustomExceptions.AstarPathNotFoundException;
-import core.Grid.AstarGrid;
-import core.Interfaces.IAstarGrid;
-import core.Interfaces.IAstarNode;
-import core.Interfaces.IAstarPathFinder;
+import Interfaces.FunctionalInterfaces.FunctionalTest;
+import Node.AstarNode;
+import PathFinding.AstarPathFinder;
+import CustomExceptions.AstarNodeNotOnGridException;
+import CustomExceptions.AstarPathNotFoundException;
+import Grid.AstarGrid;
+import Interfaces.IAstarGrid;
+import Interfaces.IAstarNode;
+import Interfaces.IAstarPathFinder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,7 +69,9 @@ public class AstarTests {
     @Test
     public void TestPathFinding() {
         try {
-            pathFinder.findPath(astarNode -> astarNode.getObstacleValue() == 0, 0);
+            FunctionalTest functionalTest = new FunctionalTest();
+            functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
+            pathFinder.findPath(functionalTest, 0);
             System.out.println("Cols: "+ cols );
             System.out.println("Rows: "+ rows);
             System.out.println("Start: "+start);
@@ -94,6 +97,8 @@ public class AstarTests {
                     node.setObstacleValue(999);
             }
         }
-        pathFinder.findPath(astarNode -> astarNode.getObstacleValue() == 0, 0);
+        FunctionalTest functionalTest = new FunctionalTest();
+        functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
+        pathFinder.findPath(functionalTest, 0);
     }
 }

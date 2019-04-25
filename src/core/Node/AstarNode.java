@@ -1,11 +1,11 @@
-package core.Node;
+package Node;
 
-import core.CustomExceptions.AstarNodeNotOnGridException;
-import core.Interfaces.IAstarGrid;
-import core.Interfaces.IAstarNode;
+import Interfaces.FunctionalInterfaces.FunctionalTest;
+import CustomExceptions.AstarNodeNotOnGridException;
+import Interfaces.IAstarGrid;
+import Interfaces.IAstarNode;
 
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 public class AstarNode implements IAstarNode {
     private ArrayList<IAstarNode> neighbors = new ArrayList<>();
@@ -92,14 +92,23 @@ public class AstarNode implements IAstarNode {
     }
 
     @Override
-    public void addNeighbors(IAstarGrid grid, IAstarNode end, ArrayList<IAstarNode> openSet, ArrayList<IAstarNode> closedSet, Predicate<IAstarNode> conditionToAdd, int jumpUpTo) {
+    public void addNeighbors(IAstarGrid grid, IAstarNode end, ArrayList<IAstarNode> openSet, ArrayList<IAstarNode> closedSet, FunctionalTest conditionToAdd, int jumpUpTo) {
         for (int i = this.getX() - 1 - jumpUpTo; i < this.getX() + 2 + jumpUpTo; i++) {
             for (int j = this.getY() - 1 - jumpUpTo; j < this.getY() + 2 + jumpUpTo; j++) {
                 try {
+                    Boolean passed = false;
                     IAstarNode neighbor = grid.getNode(i, j);
 
                     neighbor.calculateCost(this.getCost(), end);
-                    if (conditionToAdd.test(neighbor)) {
+                    if (conditionToAdd.getArgumentCounter() == 1){
+                        passed = conditionToAdd.getFunc1().apply(neighbor);
+                    }else if (conditionToAdd.getArgumentCounter() == 2){
+                        passed = conditionToAdd.getFunc2().apply(this,neighbor);
+                    } else if (conditionToAdd.getArgumentCounter() == 3){
+                        passed = conditionToAdd.getFunc3().apply(this.getPreviousNode(),this,neighbor);
+                    }
+
+                    if (passed) {
                         if (!(openSet.contains(neighbor) || closedSet.contains(neighbor))) {
                             neighbors.add(neighbor);
                         } else {

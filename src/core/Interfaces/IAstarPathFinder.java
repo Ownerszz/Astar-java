@@ -1,9 +1,9 @@
-package core.Interfaces;
+package Interfaces;
 
-import core.CustomExceptions.AstarPathNotFoundException;
-import core.Interfaces.IAstarNode;
+import Interfaces.FunctionalInterfaces.FunctionalTest;
+import CustomExceptions.AstarPathNotFoundException;
+import Interfaces.IAstarNode;
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 public interface IAstarPathFinder {
     /*
@@ -14,7 +14,7 @@ public interface IAstarPathFinder {
 
                                                     Throws:     - AstarPathNotFoundException
          */
-    void findPath(Predicate<IAstarNode> conditionForAddingNeighbors, int jumpUpTo) throws AstarPathNotFoundException;
+    void findPath(FunctionalTest conditionForAddingNeighbors, int jumpUpTo) throws AstarPathNotFoundException;
 
     /*
         Method getOptimalPath:

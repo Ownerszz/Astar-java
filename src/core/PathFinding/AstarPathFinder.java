@@ -1,12 +1,12 @@
-package core.PathFinding;
+package PathFinding;
 
-import core.CustomExceptions.AstarPathNotFoundException;
-import core.Interfaces.IAstarGrid;
-import core.Interfaces.IAstarNode;
-import core.Interfaces.IAstarPathFinder;
+import Interfaces.FunctionalInterfaces.FunctionalTest;
+import CustomExceptions.AstarPathNotFoundException;
+import Interfaces.IAstarGrid;
+import Interfaces.IAstarNode;
+import Interfaces.IAstarPathFinder;
 
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 /*
 This class is can be used for 2D or more grids.
@@ -45,8 +45,8 @@ public class AstarPathFinder implements IAstarPathFinder {
                                                 Throws:     - AstarPathNotFoundException
      */
     @Override
-    public void findPath(Predicate<IAstarNode> conditionForAddingNeighbors, int jumpUpTo) throws AstarPathNotFoundException {
-        //TODO: finish this
+    public void findPath(FunctionalTest conditionForAddingNeighbors, int jumpUpTo) throws AstarPathNotFoundException {
+
         openSet.add(start);
         start.setPreviousNode(start);
         while (!openSet.isEmpty()) {

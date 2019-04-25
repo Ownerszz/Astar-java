@@ -1,4 +1,4 @@
-package core.CustomExceptions;
+package CustomExceptions;
 
 
 public class AstarPathNotFoundException extends Exception {

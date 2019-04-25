@@ -1,7 +1,7 @@
-package core.Interfaces;
-import core.Interfaces.IAstarGrid;
+package Interfaces;
+import Interfaces.FunctionalInterfaces.FunctionalTest;
+
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 public interface IAstarNode {
     int getCost();
@@ -27,5 +27,5 @@ public interface IAstarNode {
     @Override
     boolean equals(Object obj);
 
-    void addNeighbors(IAstarGrid grid, IAstarNode end, ArrayList<IAstarNode> openSet, ArrayList<IAstarNode> closedSet, Predicate<IAstarNode> conditionToAdd, int jumpUpTo);
+    void addNeighbors(IAstarGrid grid, IAstarNode end, ArrayList<IAstarNode> openSet, ArrayList<IAstarNode> closedSet, FunctionalTest conditionToAdd, int jumpUpTo);
 }
