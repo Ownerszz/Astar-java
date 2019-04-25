@@ -1,4 +1,0 @@
-@FunctionalInterface
-public interface IFunc<T, R> {
-    R apply(T t);
-}

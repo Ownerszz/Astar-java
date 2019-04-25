@@ -1,5 +1,5 @@
 package core.Interfaces.FunctionalInterfaces;
 @FunctionalInterface
-public interface IFunc2<T, T1, R> {
-    R apply(T t, T1 t1);
+public interface IFunc1<T, R> {
+    R apply(T t);
 }
