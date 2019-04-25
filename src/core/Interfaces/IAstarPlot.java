@@ -1,4 +1,4 @@
-package Interfaces;
+package core.Interfaces;
 
 import javafx.scene.Scene;
 public interface IAstarPlot {

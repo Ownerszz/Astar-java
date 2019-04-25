@@ -1,6 +1,6 @@
-package Interfaces;
+package core.Interfaces;
 
-import CustomExceptions.AstarNodeNotOnGridException;
+import core.CustomExceptions.AstarNodeNotOnGridException;
 
 public interface IAstarGrid {
     IAstarNode getNode(int x, int y) throws AstarNodeNotOnGridException;

@@ -1,8 +1,8 @@
-package Grid;
+package core.Grid;
 
-import CustomExceptions.AstarNodeNotOnGridException;
-import Interfaces.IAstarGrid;
-import Interfaces.IAstarNode;
+import core.CustomExceptions.AstarNodeNotOnGridException;
+import core.Interfaces.IAstarGrid;
+import core.Interfaces.IAstarNode;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;

@@ -1,9 +1,5 @@
-package Interfaces.FunctionalInterfaces;
-
-
+package core.Interfaces.FunctionalInterfaces;
 @FunctionalInterface
-public interface IFunc1<T, Boolean> {
+public interface IFunc1<T, Boolean>{
     Boolean apply(T t);
-
-
 }

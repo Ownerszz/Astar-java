@@ -1,4 +1,4 @@
-package CustomExceptions;
+package core.CustomExceptions;
 
 public class AstarNodeNotOnGridException extends Exception {
 }

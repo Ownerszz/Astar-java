@@ -1,9 +1,9 @@
-package Node;
+package core.Node;
 
-import CustomExceptions.AstarNodeNotOnGridException;
-import Interfaces.FunctionalInterfaces.FunctionalTest;
-import Interfaces.IAstarGrid;
-import Interfaces.IAstarNode;
+import core.CustomExceptions.AstarNodeNotOnGridException;
+import core.Interfaces.FunctionalInterfaces.FunctionalTest;
+import core.Interfaces.IAstarGrid;
+import core.Interfaces.IAstarNode;
 
 import java.util.ArrayList;
 

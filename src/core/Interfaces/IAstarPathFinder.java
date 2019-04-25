@@ -1,7 +1,7 @@
-package Interfaces;
+package core.Interfaces;
 
-import CustomExceptions.AstarPathNotFoundException;
-import Interfaces.FunctionalInterfaces.FunctionalTest;
+import core.CustomExceptions.AstarPathNotFoundException;
+import core.Interfaces.FunctionalInterfaces.FunctionalTest;
 
 import java.util.ArrayList;
 

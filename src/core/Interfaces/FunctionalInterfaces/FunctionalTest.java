@@ -1,6 +1,6 @@
-package Interfaces.FunctionalInterfaces;
+package core.Interfaces.FunctionalInterfaces;
 
-import Interfaces.IAstarNode;
+import core.Interfaces.IAstarNode;
 
 public class FunctionalTest  {
     private IFunc1<IAstarNode,Boolean> func1;

@@ -1,5 +1,5 @@
-package Interfaces;
-import Interfaces.FunctionalInterfaces.FunctionalTest;
+package core.Interfaces;
+import core.Interfaces.FunctionalInterfaces.FunctionalTest;
 
 import java.util.ArrayList;
 

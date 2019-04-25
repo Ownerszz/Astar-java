@@ -1,10 +1,10 @@
-package PathFinding;
+package core.PathFinding;
 
-import CustomExceptions.AstarPathNotFoundException;
-import Interfaces.FunctionalInterfaces.FunctionalTest;
-import Interfaces.IAstarGrid;
-import Interfaces.IAstarNode;
-import Interfaces.IAstarPathFinder;
+import core.CustomExceptions.AstarPathNotFoundException;
+import core.Interfaces.FunctionalInterfaces.FunctionalTest;
+import core.Interfaces.IAstarGrid;
+import core.Interfaces.IAstarNode;
+import core.Interfaces.IAstarPathFinder;
 
 import java.util.ArrayList;
 
