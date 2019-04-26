@@ -1,7 +1,6 @@
 package core.Interfaces;
 
 import core.CustomExceptions.AstarPathNotFoundException;
-import core.Interfaces.FunctionalInterfaces.FunctionalTest;
 
 import java.util.ArrayList;
 
@@ -14,8 +13,7 @@ public interface IAstarPathFinder {
 
                                                     Throws:     - AstarPathNotFoundException
          */
-    void findPath(FunctionalTest conditionForAddingNeighbors, int jumpUpTo) throws AstarPathNotFoundException;
-
+    void findPath(IFunctionalTest conditionForAddingNeighbors, int jumpUpTo) throws AstarPathNotFoundException;
     /*
         Method getOptimalPath:
         Method that gives the optimal path.

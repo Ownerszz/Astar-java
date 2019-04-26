@@ -1,5 +1,4 @@
 package core.Interfaces;
-import core.Interfaces.FunctionalInterfaces.FunctionalTest;
 
 import java.util.ArrayList;
 
@@ -27,5 +26,6 @@ public interface IAstarNode {
     @Override
     boolean equals(Object obj);
 
-    void addNeighbors(IAstarGrid grid, IAstarNode end, ArrayList<IAstarNode> openSet, ArrayList<IAstarNode> closedSet, FunctionalTest conditionToAdd, int jumpUpTo);
+    void addNeighbors(IAstarGrid grid, IAstarNode end, ArrayList<IAstarNode> openSet, ArrayList<IAstarNode> closedSet, IFunctionalTest conditionToAdd, int jumpUpTo);
+
 }

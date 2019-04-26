@@ -1,10 +1,11 @@
 package core.PathFinding;
 
+import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
-import core.Interfaces.FunctionalInterfaces.FunctionalTest;
 import core.Interfaces.IAstarGrid;
 import core.Interfaces.IAstarNode;
 import core.Interfaces.IAstarPathFinder;
+import core.Interfaces.IFunctionalTest;
 
 import java.util.ArrayList;
 
@@ -28,12 +29,23 @@ public class AstarPathFinder implements IAstarPathFinder {
                                                             - A new ArrayList (openSet) containing the nodes that we want to evaluate (is empty at start)
                                                             - A new ArrayList (closedSet) containing the nodes that we already evaluated (is empty at start)
      */
-    public AstarPathFinder(IAstarNode start, IAstarNode end, IAstarGrid grid) {
+    public AstarPathFinder(IAstarNode start, IAstarNode end, IAstarGrid grid) throws AstarNodeNotOnGridException {
         this.start = start;
         this.end = end;
+        this.grid = grid;
+        validateStartAndEndNode();
         this.openSet = new ArrayList<>();
         this.closedSet = new ArrayList<>();
-        this.grid = grid;
+
+
+
+
+    }
+
+    private void validateStartAndEndNode() throws AstarNodeNotOnGridException {
+        IAstarNode found;
+        found = grid.getNode(start.getX(),start.getY());
+        found = grid.getNode(end.getX(),end.getY());
     }
 
     /*
@@ -44,8 +56,9 @@ public class AstarPathFinder implements IAstarPathFinder {
 
                                                 Throws:     - AstarPathNotFoundException
      */
+
     @Override
-    public void findPath(FunctionalTest conditionForAddingNeighbors, int jumpUpTo) throws AstarPathNotFoundException {
+    public void findPath(IFunctionalTest conditionForAddingNeighbors, int jumpUpTo) throws AstarPathNotFoundException {
 
         openSet.add(start);
         start.setPreviousNode(start);

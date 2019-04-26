@@ -14,10 +14,10 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class SimpleExample extends Application {
+public class AdvancedExample extends Application {
     private static final int COLS = 160;
     private static final int ROWS = 90;
-    private static final int OBSTACLE_CHANCE = 30;
+    private static final int OBSTACLE_CHANCE = 80;
     private static Random random = new Random();
 
     @Override
@@ -32,7 +32,7 @@ public class SimpleExample extends Application {
                     } else if (i == COLS - 1 && j == ROWS - 1) {
 
                     } else {
-                        node = new AstarNode(i, j, 999);
+                        node = new AstarNode(i, j, random.nextInt(3));
                     }
                 }
                 grid.get(i).add(node);
@@ -44,7 +44,7 @@ public class SimpleExample extends Application {
             IAstarGrid astarGrid = new AstarGrid(grid);
             IAstarPathFinder pathFinder = new AstarPathFinder(astarGrid.getNode(0, 0), astarGrid.getNode(COLS - 1, ROWS - 1), astarGrid);
             IFunctionalTest functionalTest = new FunctionalTest();
-            functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
+            functionalTest.setFunc2((current,neighbor) -> Math.abs(current.getObstacleValue() - neighbor.getObstacleValue()) <= 1);
             pathFinder.findPath(functionalTest, 0);
             IAstarPlot plot = new AstarPlot(astarGrid);
             primaryStage.setMaximized(true);

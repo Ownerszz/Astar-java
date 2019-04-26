@@ -1,9 +1,9 @@
 package core.Node;
 
 import core.CustomExceptions.AstarNodeNotOnGridException;
-import core.Interfaces.FunctionalInterfaces.FunctionalTest;
 import core.Interfaces.IAstarGrid;
 import core.Interfaces.IAstarNode;
+import core.Interfaces.IFunctionalTest;
 
 import java.util.ArrayList;
 
@@ -91,14 +91,14 @@ public class AstarNode implements IAstarNode {
         }    
     }
 
+
     @Override
-    public void addNeighbors(IAstarGrid grid, IAstarNode end, ArrayList<IAstarNode> openSet, ArrayList<IAstarNode> closedSet, FunctionalTest conditionToAdd, int jumpUpTo) {
+    public void addNeighbors(IAstarGrid grid, IAstarNode end, ArrayList<IAstarNode> openSet, ArrayList<IAstarNode> closedSet, IFunctionalTest conditionToAdd, int jumpUpTo) {
         for (int i = this.getX() - 1 - jumpUpTo; i < this.getX() + 2 + jumpUpTo; i++) {
             for (int j = this.getY() - 1 - jumpUpTo; j < this.getY() + 2 + jumpUpTo; j++) {
                 try {
                     Boolean passed = false;
                     IAstarNode neighbor = grid.getNode(i, j);
-
                     neighbor.calculateCost(this.getCost(), end);
                     if (conditionToAdd.getArgumentCounter() == 1){
                         passed = conditionToAdd.getFunc1().apply(neighbor);
@@ -140,6 +140,6 @@ public class AstarNode implements IAstarNode {
 
     @Override
     public String toString() {
-        return String.format("X: %d, Y: %d, cost: %d", this.x, this.y, this.cost);
+        return String.format("X: %d, Y: %d, cost: %d, obstacleVal: %d", this.x, this.y, this.cost,this.obstacleValue);
     }
 }

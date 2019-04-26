@@ -3,10 +3,11 @@ package tests;
 import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.Grid.AstarGrid;
-import core.Interfaces.FunctionalInterfaces.FunctionalTest;
+import core.FunctionalTesting.FunctionalTest;
 import core.Interfaces.IAstarGrid;
 import core.Interfaces.IAstarNode;
 import core.Interfaces.IAstarPathFinder;
+import core.Interfaces.IFunctionalTest;
 import core.Node.AstarNode;
 import core.PathFinding.AstarPathFinder;
 import org.junit.Assert;
@@ -26,12 +27,13 @@ public class AstarTests {
     private int rows;
     private int cols;
 
-
     @Before
     public void SetUp() {
         if (!oneTimeSetUp) {
-            cols = random.nextInt(20);
-            rows = random.nextInt(20);
+            while (cols == 0 || rows == 0){
+                cols = random.nextInt(20);
+                rows = random.nextInt(20);
+            }
             ArrayList<ArrayList<IAstarNode>> grid = new ArrayList<>();
             for (int i = 0; i < cols; i++) {
                 grid.add(new ArrayList<>());
@@ -59,17 +61,20 @@ public class AstarTests {
 
                 }
             }
-            this.pathFinder = new AstarPathFinder(start, end, this.grid);
+            try {
+                this.pathFinder = new AstarPathFinder(start, end, this.grid);
+            }catch (AstarNodeNotOnGridException e){
+
+            }
+
             oneTimeSetUp = true;
-        } else {
-            return;
         }
     }
 
     @Test
     public void TestPathFinding() {
         try {
-            FunctionalTest functionalTest = new FunctionalTest();
+            IFunctionalTest functionalTest = new FunctionalTest();
             functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
             pathFinder.findPath(functionalTest, 0);
             System.out.println("Cols: "+ cols );
@@ -97,8 +102,15 @@ public class AstarTests {
                     node.setObstacleValue(999);
             }
         }
-        FunctionalTest functionalTest = new FunctionalTest();
+        IFunctionalTest functionalTest = new FunctionalTest();
         functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
         pathFinder.findPath(functionalTest, 0);
+    }
+
+    @Test(expected = AstarNodeNotOnGridException.class)
+    public void TestBadStartOrEndNode() throws AstarNodeNotOnGridException{
+        IFunctionalTest functionalTest = new FunctionalTest();
+        functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
+        pathFinder = new AstarPathFinder(start,end,grid);
     }
 }
