@@ -18,6 +18,7 @@ Necessary packages for the Astar Algorithm (The algorithm as written in the code
 
 Necessary packages for the Astar Algorithm (Light version):
 * core.Interfaces 
+* core.CustomExceptions
 * \+ The ones that you want prewritten.
 
 
