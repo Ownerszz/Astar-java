@@ -10,6 +10,7 @@ This project is divided in 3 parts:
 
 Necessary packages for the Astar Algorithm (The algorithm as written in the code):
 * core.Interfaces
+* core.FunctionalTesting
 * core.Node
 * core.Grid
 * core.PathFinding
