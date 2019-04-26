@@ -111,6 +111,6 @@ public class AstarTests {
     public void TestBadStartOrEndNode() throws AstarNodeNotOnGridException{
         IFunctionalTest functionalTest = new FunctionalTest();
         functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
-        pathFinder = new AstarPathFinder(start,end,grid);
+        pathFinder = new AstarPathFinder(new AstarNode(999,999,999),end,grid);
     }
 }
