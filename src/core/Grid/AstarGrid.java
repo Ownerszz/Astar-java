@@ -34,6 +34,10 @@ public class AstarGrid implements IAstarGrid {
         }
         return grid[x][y];
     }
+    @Override
+    public IAstarNode getNode(IAstarNode node) throws AstarNodeNotOnGridException {
+        return getNode(node.getX(),node.getY());
+    }
 
     @Override
     public IAstarNode[][] getGrid() {

@@ -44,8 +44,8 @@ public class AstarPathFinder implements IAstarPathFinder {
 
     private void validateStartAndEndNode() throws AstarNodeNotOnGridException {
         IAstarNode found;
-        found = grid.getNode(start.getX(),start.getY());
-        found = grid.getNode(end.getX(),end.getY());
+        found = grid.getNode(start);
+        found = grid.getNode(end);
     }
 
     /*

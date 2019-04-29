@@ -19,7 +19,13 @@ public class SimpleExample extends Application {
     private static final int ROWS = 90;
     private static final int OBSTACLE_CHANCE = 30;
     private static Random random = new Random();
-
+/*
+* In this example we use a IFunc1 to check the neighbor is a wall.
+* This example simulates simple walls.
+* Walls are placed at random and their value will be 1:
+* You can see that there will never be a jump from 0 to a wall.
+*
+* */
     @Override
     public void start(Stage primaryStage) {
         ArrayList<ArrayList<IAstarNode>> grid = new ArrayList<>();

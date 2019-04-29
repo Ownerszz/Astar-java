@@ -14,6 +14,18 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Random;
 
+/*
+* In this example we use a IFunc2 to check whether the difference in the obstaclevalue is less than 1.
+* This example simulates walls and climbable/jumpable walls.
+* Walls are placed at random and their value will be between 1,2:
+*                                                                   - 1 is wall of "height" 1
+*                                                                   - 2 is wall of "height" 2
+* You can see that there will never be a jump from 0 to 2 or vice versa.
+*
+* */
+
+
+
 public class AdvancedExample extends Application {
     private static final int COLS = 160;
     private static final int ROWS = 90;
