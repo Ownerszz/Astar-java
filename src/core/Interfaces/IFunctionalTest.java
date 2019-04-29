@@ -12,7 +12,7 @@ public interface IFunctionalTest {
     //Test the current node and its currently selected neighbor
     void setFunc2(IFunc2<IAstarNode, IAstarNode, Boolean> func2);
 
-    //Test the previous node of the current node and the current node and the neighbor
+    //Test the current node and the neighbor and another node
     void setFunc3(IFunc3<IAstarNode, IAstarNode, IAstarNode, Boolean> func3);
 
     IFunc1<IAstarNode, Boolean> getFunc1();
