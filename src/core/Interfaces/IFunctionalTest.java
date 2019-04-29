@@ -6,13 +6,13 @@ import core.Interfaces.FunctionalInterfaces.IFunc3;
 import core.Interfaces.IAstarNode;
 
 public interface IFunctionalTest {
-    //Test the neighbor
+    //Test 1 IAstarNode
     void setFunc1(IFunc1<IAstarNode, Boolean> func1);
 
-    //Test the current node and its currently selected neighbor
+    //Test 2 IAstarNodes
     void setFunc2(IFunc2<IAstarNode, IAstarNode, Boolean> func2);
 
-    //Test the current node and the neighbor and another node
+    //Test 3 IAstarNodes
     void setFunc3(IFunc3<IAstarNode, IAstarNode, IAstarNode, Boolean> func3);
 
     IFunc1<IAstarNode, Boolean> getFunc1();
