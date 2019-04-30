@@ -1,6 +1,7 @@
 # Astar
 
 Created a simple Astar pathfinding interface.
+
 In the documentation folder you can find:
 * A class diagram
 
