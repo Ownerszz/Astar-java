@@ -1,6 +1,9 @@
 # Astar
 
 Created a simple Astar pathfinding interface.
+In the documentation folder you can find:
+* A class diagram
+
 
 This project is divided in 3 parts:
 * core: Where all the components are for the Astar Algorithm.
