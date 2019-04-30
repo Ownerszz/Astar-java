@@ -17,7 +17,7 @@ public class AstarNode implements IAstarNode {
     private int obstacleValue;
 
 
-    public AstarNode(int x, int y, int obstacleValue) {
+    protected AstarNode(int x, int y, int obstacleValue) {
         this.x = x;
         this.y = y;
         this.obstacleValue = obstacleValue;

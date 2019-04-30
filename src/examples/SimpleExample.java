@@ -1,24 +1,21 @@
 package examples;
 
+import core.CustomExceptions.AstarGridFactoryIllegalArgumentException;
 import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
-import core.Grid.AstarGrid;
 import core.FunctionalTesting.FunctionalTest;
+import core.Grid.AstarGridFactory;
 import core.Interfaces.*;
-import core.Node.AstarNode;
+import core.Node.AstarNodeFactory;
 import core.PathFinding.AstarPathFinder;
 import core.Plot.AstarPlot;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class SimpleExample extends Application {
     private static final int COLS = 160;
     private static final int ROWS = 90;
     private static final int OBSTACLE_CHANCE = 30;
-    private static Random random = new Random();
 /*
 * In this example we use a IFunc1 to check the neighbor is a wall.
 * This example simulates simple walls.
@@ -28,27 +25,10 @@ public class SimpleExample extends Application {
 * */
     @Override
     public void start(Stage primaryStage) {
-        ArrayList<ArrayList<IAstarNode>> grid = new ArrayList<>();
-        for (int i = 0; i < COLS; i++) {
-            grid.add(new ArrayList<>());
-            for (int j = 0; j < ROWS; j++) {
-                AstarNode node = new AstarNode(i, j, 0);
-                if (random.nextInt(100) < OBSTACLE_CHANCE) {
-                    if (i == 0 && j == 0) {
-                    } else if (i == COLS - 1 && j == ROWS - 1) {
-
-                    } else {
-                        node = new AstarNode(i, j, 999);
-                    }
-                }
-                grid.get(i).add(node);
-            }
-        }
-
-
         try {
-            IAstarGrid astarGrid = new AstarGrid(grid);
-            IAstarPathFinder pathFinder = new AstarPathFinder(astarGrid.getNode(0, 0), astarGrid.getNode(COLS - 1, ROWS - 1), astarGrid);
+            IAstarGridFactoryResult result =  AstarGridFactory.createGrid(AstarNodeFactory.createNode(0,0),AstarNodeFactory.createNode(COLS-1,ROWS-1),COLS,ROWS,OBSTACLE_CHANCE,999);
+            IAstarGrid astarGrid = result.getGrid();
+            IAstarPathFinder pathFinder = new AstarPathFinder(result);
             IFunctionalTest functionalTest = new FunctionalTest();
             functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
             pathFinder.findPath(functionalTest, 0);
@@ -62,6 +42,8 @@ public class SimpleExample extends Application {
         } catch (AstarPathNotFoundException APNFE) {
             System.out.println("Path not found");
         } catch (AstarNodeNotOnGridException ANNOGE) {
+
+        }catch (AstarGridFactoryIllegalArgumentException AGFIAE){
 
         }
     }

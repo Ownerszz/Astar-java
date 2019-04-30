@@ -86,6 +86,7 @@ public class AstarPlot extends BorderPane implements IAstarPlot {
                         rectangle.setFill(Color.WHITE);
                     }
 
+
                     gridPane.add(rectangle, xIndex, yIndex);
                 } catch (AstarNodeNotOnGridException ANNOGE) {
 
@@ -106,6 +107,12 @@ public class AstarPlot extends BorderPane implements IAstarPlot {
                                 r.setFill(Color.PURPLE);
                             } else {
                                 r.setFill(Color.GREEN);
+                            }
+                            if (node.equals(pathFinder.getStart())){
+                                r.setFill(Color.DARKRED);
+                            }
+                            if (node.equals(pathFinder.getEnd())){
+                                r.setFill(Color.DARKBLUE);
                             }
 
                         }

@@ -1,28 +1,24 @@
 package tests;
 
+import core.CustomExceptions.AstarGridFactoryIllegalArgumentException;
 import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
-import core.Grid.AstarGrid;
 import core.FunctionalTesting.FunctionalTest;
-import core.Interfaces.IAstarGrid;
-import core.Interfaces.IAstarNode;
-import core.Interfaces.IAstarPathFinder;
-import core.Interfaces.IFunctionalTest;
-import core.Node.AstarNode;
+import core.Grid.AstarGridFactory;
+import core.Interfaces.*;
+
+import core.Node.AstarNodeFactory;
 import core.PathFinding.AstarPathFinder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Random;
 
 public class AstarTests {
     private IAstarGrid grid;
     private IAstarPathFinder pathFinder;
     private IAstarNode start;
     private IAstarNode end;
-    private Random random = new Random();
     private boolean oneTimeSetUp;
     private int rows;
     private int cols;
@@ -30,44 +26,24 @@ public class AstarTests {
     @Before
     public void SetUp() {
         if (!oneTimeSetUp) {
-            while (cols == 0 || rows == 0){
-                cols = random.nextInt(20);
-                rows = random.nextInt(20);
-            }
-            ArrayList<ArrayList<IAstarNode>> grid = new ArrayList<>();
-            for (int i = 0; i < cols; i++) {
-                grid.add(new ArrayList<>());
-                for (int j = 0; j < rows; j++) {
-                    AstarNode node = new AstarNode(i, j, 0);
-                    grid.get(i).add(node);
-                }
-            }
-            this.grid = new AstarGrid(grid);
-            while (start == null || end == null) {
-                try {
-                    if (start == null) {
-                        start = this.grid.getNode(random.nextInt(cols), random.nextInt(rows));
-                    }
-                    if (end == null) {
-                        end = this.grid.getNode(random.nextInt(cols), random.nextInt(rows));
-                    }
-                    if (start.equals(end)) {
-                        start = null;
-                        end = null;
-                    }
-                } catch (AstarNodeNotOnGridException e) {
 
-                } catch (ArrayIndexOutOfBoundsException e) {
-
-                }
-            }
             try {
-                this.pathFinder = new AstarPathFinder(start, end, this.grid);
+                cols = 20;
+                rows = 20;
+                IAstarGridFactoryResult result = AstarGridFactory.createRandomGrid(cols,rows,30,999,false);
+                this.grid = result.getGrid();
+                this.start = result.getStart();
+                this.end = result.getEnd();
+
+                this.pathFinder = new AstarPathFinder(result);
+                oneTimeSetUp = true;
             }catch (AstarNodeNotOnGridException e){
 
+            }catch (AstarGridFactoryIllegalArgumentException e){
+
             }
 
-            oneTimeSetUp = true;
+
         }
     }
 
@@ -111,6 +87,6 @@ public class AstarTests {
     public void TestBadStartOrEndNode() throws AstarNodeNotOnGridException{
         IFunctionalTest functionalTest = new FunctionalTest();
         functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
-        pathFinder = new AstarPathFinder(new AstarNode(999,999,999),end,grid);
+        pathFinder = new AstarPathFinder(AstarNodeFactory.createNode(999,999),end,grid);
     }
 }

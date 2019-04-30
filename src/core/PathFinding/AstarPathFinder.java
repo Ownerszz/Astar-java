@@ -2,10 +2,7 @@ package core.PathFinding;
 
 import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathNotFoundException;
-import core.Interfaces.IAstarGrid;
-import core.Interfaces.IAstarNode;
-import core.Interfaces.IAstarPathFinder;
-import core.Interfaces.IFunctionalTest;
+import core.Interfaces.*;
 
 import java.util.ArrayList;
 
@@ -36,10 +33,10 @@ public class AstarPathFinder implements IAstarPathFinder {
         validateStartAndEndNode();
         this.openSet = new ArrayList<>();
         this.closedSet = new ArrayList<>();
+    }
 
-
-
-
+    public AstarPathFinder(IAstarGridFactoryResult result) throws AstarNodeNotOnGridException{
+       this(result.getStart(),result.getEnd(),result.getGrid());
     }
 
     private void validateStartAndEndNode() throws AstarNodeNotOnGridException {
@@ -71,6 +68,7 @@ public class AstarPathFinder implements IAstarPathFinder {
             }
 
             if (currentNode.equals(end)) {
+                end = currentNode;
                 pathFound = true;
                 return;
             }
@@ -108,6 +106,16 @@ public class AstarPathFinder implements IAstarPathFinder {
             return optimalPath;
         }
         throw new AstarPathNotFoundException();
+    }
+
+    @Override
+    public IAstarNode getStart(){
+        return start;
+    }
+
+    @Override
+    public IAstarNode getEnd(){
+        return end;
     }
 
 

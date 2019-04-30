@@ -22,4 +22,8 @@ public interface IAstarPathFinder {
                                                     Throws:     - AstarPathNotFoundException
          */
     ArrayList<IAstarNode> getOptimalPath() throws AstarPathNotFoundException;
+
+    IAstarNode getStart();
+
+    IAstarNode getEnd();
 }
