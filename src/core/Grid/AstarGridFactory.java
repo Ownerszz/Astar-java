@@ -1,6 +1,7 @@
 package core.Grid;
 
 import core.CustomExceptions.AstarGridFactoryIllegalArgumentException;
+import core.CustomExceptions.AstarNodeFactoryIllegalArgumentException;
 import core.Interfaces.IAstarGridFactoryResult;
 import core.Interfaces.IAstarNode;
 import core.Node.AstarNodeFactory;
@@ -58,13 +59,17 @@ public final class AstarGridFactory {
         }
         return createGrid(startNode,endNode,cols,rows,obstacleChance,maxObstacleValue);
     }
-    private static IAstarNode initialiseRandomNode(int cols, int rows,int maxObstacleValue , boolean allowStartAndEndWithObstacleValues){
-
-        if (allowStartAndEndWithObstacleValues){
-            return AstarNodeFactory.createRandomNode(cols,rows,maxObstacleValue);
-        }else {
-            return AstarNodeFactory.createRandomNode(cols,rows,0);
+    private static IAstarNode initialiseRandomNode(int cols, int rows,int maxObstacleValue , boolean allowStartAndEndWithObstacleValues) throws AstarGridFactoryIllegalArgumentException{
+        try {
+            if (allowStartAndEndWithObstacleValues){
+                return AstarNodeFactory.createRandomNode(cols,rows,maxObstacleValue);
+            }else {
+                return AstarNodeFactory.createRandomNode(cols,rows,0);
+            }
+        }catch (AstarNodeFactoryIllegalArgumentException ANFIAE){
+            throw new AstarGridFactoryIllegalArgumentException();
         }
+
 
     }
 }

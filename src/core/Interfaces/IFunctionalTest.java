@@ -3,7 +3,7 @@ package core.Interfaces;
 import core.Interfaces.FunctionalInterfaces.IFunc1;
 import core.Interfaces.FunctionalInterfaces.IFunc2;
 import core.Interfaces.FunctionalInterfaces.IFunc3;
-import core.Interfaces.IAstarNode;
+
 
 public interface IFunctionalTest {
     //Test 1 IAstarNode
