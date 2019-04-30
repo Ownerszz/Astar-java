@@ -23,3 +23,5 @@ Necessary packages for the Astar Algorithm (Light version):
 
 
 **core.Plot is only used to show the user how the path looks like**
+
+
