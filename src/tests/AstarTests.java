@@ -2,6 +2,7 @@ package tests;
 
 import core.CustomExceptions.AstarGridFactoryIllegalArgumentException;
 import core.CustomExceptions.AstarNodeNotOnGridException;
+import core.CustomExceptions.AstarPathFinderFactoryIllegalArgumentException;
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.FunctionalTesting.FunctionalTest;
 import core.Grid.AstarGridFactory;
@@ -9,6 +10,7 @@ import core.Interfaces.*;
 
 import core.Node.AstarNodeFactory;
 import core.PathFinding.AstarPathFinder;
+import core.PathFinding.AstarPathFinderFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +18,7 @@ import org.junit.Test;
 
 public class AstarTests {
     private IAstarGrid grid;
+    private IAstarGridFactoryResult result;
     private IAstarPathFinder pathFinder;
     private IAstarNode start;
     private IAstarNode end;
@@ -30,15 +33,12 @@ public class AstarTests {
             try {
                 cols = 20;
                 rows = 20;
-                IAstarGridFactoryResult result = AstarGridFactory.createRandomGrid(cols,rows,30,999,false);
+                this.result = AstarGridFactory.createRandomGrid(cols,rows,30,999,false);
                 this.grid = result.getGrid();
                 this.start = result.getStart();
                 this.end = result.getEnd();
 
-                this.pathFinder = new AstarPathFinder(result);
                 oneTimeSetUp = true;
-            }catch (AstarNodeNotOnGridException e){
-
             }catch (AstarGridFactoryIllegalArgumentException e){
 
             }
@@ -52,15 +52,17 @@ public class AstarTests {
         try {
             IFunctionalTest functionalTest = new FunctionalTest();
             functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
-            pathFinder.findPath(functionalTest, 0);
+            IAstarPathFinderFactoryResult astarPathFinderFactoryResult = AstarPathFinderFactory.createPathFinder(this.result,functionalTest);
             System.out.println("Cols: "+ cols );
             System.out.println("Rows: "+ rows);
             System.out.println("Start: "+start);
             System.out.println("End: " +end);
-            pathFinder.getOptimalPath().forEach(System.out::println);
-            Assert.assertNotNull(pathFinder.getOptimalPath());
+            astarPathFinderFactoryResult.getOptimalPath().forEach(System.out::println);
+            Assert.assertNotNull(astarPathFinderFactoryResult.getOptimalPath());
         } catch (AstarPathNotFoundException e) {
             Assert.fail("Couldn't find a path with no obstacles");
+        }catch (AstarPathFinderFactoryIllegalArgumentException e){
+
         }
     }
 
@@ -78,15 +80,28 @@ public class AstarTests {
                     node.setObstacleValue(999);
             }
         }
-        IFunctionalTest functionalTest = new FunctionalTest();
-        functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
-        pathFinder.findPath(functionalTest, 0);
+        try {
+            IFunctionalTest functionalTest = new FunctionalTest();
+            functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
+            pathFinder = AstarPathFinderFactory.createPathFinder(result,functionalTest).getPathFinder();
+        } catch (AstarPathFinderFactoryIllegalArgumentException e){
+
+        }
+        Assert.fail("Path was found but shouldn't be possible");
+
     }
 
     @Test(expected = AstarNodeNotOnGridException.class)
     public void TestBadStartOrEndNode() throws AstarNodeNotOnGridException{
-        IFunctionalTest functionalTest = new FunctionalTest();
-        functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
-        pathFinder = new AstarPathFinder(AstarNodeFactory.createNode(999,999),end,grid);
+        try {
+            IFunctionalTest functionalTest = new FunctionalTest();
+            functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
+            pathFinder = AstarPathFinderFactory.createPathFinder(grid,AstarNodeFactory.createNode(999,999),end,functionalTest).getPathFinder();
+        }catch (AstarPathFinderFactoryIllegalArgumentException e){
+            throw new AstarNodeNotOnGridException();
+        }catch (AstarPathNotFoundException e){
+            Assert.fail("Not failed on validation");
+        }
+
     }
 }

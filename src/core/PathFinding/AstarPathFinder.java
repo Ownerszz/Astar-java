@@ -26,7 +26,7 @@ public class AstarPathFinder implements IAstarPathFinder {
                                                             - A new ArrayList (openSet) containing the nodes that we want to evaluate (is empty at start)
                                                             - A new ArrayList (closedSet) containing the nodes that we already evaluated (is empty at start)
      */
-    public AstarPathFinder(IAstarNode start, IAstarNode end, IAstarGrid grid) throws AstarNodeNotOnGridException {
+    protected AstarPathFinder(IAstarNode start, IAstarNode end, IAstarGrid grid) throws AstarNodeNotOnGridException {
         this.start = start;
         this.end = end;
         this.grid = grid;
@@ -35,7 +35,7 @@ public class AstarPathFinder implements IAstarPathFinder {
         this.closedSet = new ArrayList<>();
     }
 
-    public AstarPathFinder(IAstarGridFactoryResult result) throws AstarNodeNotOnGridException{
+    protected AstarPathFinder(IAstarGridFactoryResult result) throws AstarNodeNotOnGridException{
        this(result.getStart(),result.getEnd(),result.getGrid());
     }
 
