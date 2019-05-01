@@ -5,11 +5,13 @@ import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathFinderFactoryIllegalArgumentException;
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.FunctionalTesting.FunctionalTest;
+import core.FunctionalTesting.FunctionalTestFactory;
 import core.Grid.AstarGridFactory;
 import core.Interfaces.*;
 import core.PathFinding.AstarPathFinder;
 import core.PathFinding.AstarPathFinderFactory;
 import core.Plot.AstarPlot;
+import core.Plot.AstarPlotFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -28,12 +30,11 @@ public class SimpleRandomExample extends Application {
     public void start(Stage primaryStage) {
         try {
             IAstarGridFactoryResult astarGridFactoryResult =  AstarGridFactory.createRandomGrid(MAX_COLS, MAX_ROWS, MAX_OBSTACLE_CHANCE,999,false);
-            IFunctionalTest functionalTest = new FunctionalTest();
-            functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
+            IFunctionalTest functionalTest = FunctionalTestFactory.createFunctionalTest((node) -> node.getObstacleValue() == 0);
             IAstarPathFinderFactoryResult astarPathFinderFactoryResult = AstarPathFinderFactory.createPathFinder(astarGridFactoryResult,functionalTest);
-            IAstarPlot plot = new AstarPlot(astarGridFactoryResult.getGrid());
+
             primaryStage.setMaximized(true);
-            primaryStage.setScene(plot.drawPath(astarPathFinderFactoryResult.getPathFinder()));
+            primaryStage.setScene(AstarPlotFactory.createAstarPlot(astarPathFinderFactoryResult));
             primaryStage.titleProperty().setValue(String.format("Total nodes in path: %d", astarPathFinderFactoryResult.getOptimalPath().size()));
             primaryStage.show();
         } catch (AstarPathNotFoundException APNFE) {

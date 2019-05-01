@@ -22,16 +22,15 @@ Standard class. You can make your own class for doing this.
 This class draws the 2D grid.
  */
 public class AstarPlot extends BorderPane implements IAstarPlot {
-    private IAstarGrid grid;
     private GridPane gridPane;
 
     /*
     Constructor:
     New instance of AstarPlot will initialise with: - A AstarGrid
      */
-    public AstarPlot(IAstarGrid grid) {
+    protected AstarPlot() {
         super();
-        this.grid = grid;
+
     }
 
     /*
@@ -42,7 +41,7 @@ public class AstarPlot extends BorderPane implements IAstarPlot {
                                                                 Parameters: - A AstarPathFinder instance
      */
     @Override
-    public Scene drawPath(IAstarPathFinder pathFinder) {
+    public Scene drawPath(IAstarGrid grid,IAstarPathFinder pathFinder) {
         gridPane = new GridPane();
         this.getChildren().add(gridPane);
         gridPane.setMinSize(400, 200);

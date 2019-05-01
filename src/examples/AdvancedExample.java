@@ -5,6 +5,7 @@ import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathFinderFactoryIllegalArgumentException;
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.FunctionalTesting.FunctionalTest;
+import core.FunctionalTesting.FunctionalTestFactory;
 import core.Grid.AstarGridFactory;
 import core.Interfaces.*;
 import core.Node.AstarNode;
@@ -12,6 +13,7 @@ import core.Node.AstarNodeFactory;
 import core.PathFinding.AstarPathFinder;
 import core.PathFinding.AstarPathFinderFactory;
 import core.Plot.AstarPlot;
+import core.Plot.AstarPlotFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -36,12 +38,11 @@ public class AdvancedExample extends Application {
     public void start(Stage primaryStage) {
         try {
             IAstarGridFactoryResult astarGridFactoryResult = AstarGridFactory.createGrid(AstarNodeFactory.createNode(0,0), AstarNodeFactory.createNode(COLS-1,ROWS-1),COLS,ROWS,OBSTACLE_CHANCE,2);
-            IFunctionalTest functionalTest = new FunctionalTest();
-            functionalTest.setFunc2((current,neighbor) -> Math.abs(current.getObstacleValue() - neighbor.getObstacleValue()) <= 1);
+            IFunctionalTest functionalTest = FunctionalTestFactory.createFunctionalTest((current,neighbor) -> Math.abs(current.getObstacleValue() - neighbor.getObstacleValue()) <= 1);
             IAstarPathFinderFactoryResult astarPathFinderFactoryResult = AstarPathFinderFactory.createPathFinder(astarGridFactoryResult,functionalTest);
-            IAstarPlot plot = new AstarPlot(astarGridFactoryResult.getGrid());
+
             primaryStage.setMaximized(true);
-            primaryStage.setScene(plot.drawPath(astarPathFinderFactoryResult.getPathFinder()));
+            primaryStage.setScene(AstarPlotFactory.createAstarPlot(astarPathFinderFactoryResult));
             primaryStage.titleProperty().setValue(String.format("Total nodes in path: %d", astarPathFinderFactoryResult.getOptimalPath().size()));
             primaryStage.show();
 

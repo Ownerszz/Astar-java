@@ -9,5 +9,5 @@ public interface IAstarPlot {
 
                                                                     Parameters: - A AstarPathFinder instance
          */
-    Scene drawPath(IAstarPathFinder pathFinder);
+    Scene drawPath(IAstarGrid grid,IAstarPathFinder pathFinder);
 }

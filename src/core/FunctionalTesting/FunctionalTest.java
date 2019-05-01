@@ -11,6 +11,11 @@ public class FunctionalTest implements IFunctionalTest {
     private IFunc2<IAstarNode,IAstarNode,Boolean> func2;
     private IFunc3<IAstarNode,IAstarNode,IAstarNode,Boolean> func3;
     private int argumentCounter = 0;
+
+    protected FunctionalTest(){
+
+    }
+
     //Test the neighbor
     @Override
     public void setFunc1(IFunc1<IAstarNode, Boolean> func1) {

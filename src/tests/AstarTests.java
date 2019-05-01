@@ -5,6 +5,7 @@ import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathFinderFactoryIllegalArgumentException;
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.FunctionalTesting.FunctionalTest;
+import core.FunctionalTesting.FunctionalTestFactory;
 import core.Grid.AstarGridFactory;
 import core.Interfaces.*;
 
@@ -50,8 +51,7 @@ public class AstarTests {
     @Test
     public void TestPathFinding() {
         try {
-            IFunctionalTest functionalTest = new FunctionalTest();
-            functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
+            IFunctionalTest functionalTest = FunctionalTestFactory.createFunctionalTest((node) -> node.getObstacleValue() == 0);
             IAstarPathFinderFactoryResult astarPathFinderFactoryResult = AstarPathFinderFactory.createPathFinder(this.result,functionalTest);
             System.out.println("Cols: "+ cols );
             System.out.println("Rows: "+ rows);
@@ -81,8 +81,7 @@ public class AstarTests {
             }
         }
         try {
-            IFunctionalTest functionalTest = new FunctionalTest();
-            functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
+            IFunctionalTest functionalTest = FunctionalTestFactory.createFunctionalTest((node) -> node.getObstacleValue() == 0);
             pathFinder = AstarPathFinderFactory.createPathFinder(result,functionalTest).getPathFinder();
         } catch (AstarPathFinderFactoryIllegalArgumentException e){
 
@@ -94,8 +93,7 @@ public class AstarTests {
     @Test(expected = AstarNodeNotOnGridException.class)
     public void TestBadStartOrEndNode() throws AstarNodeNotOnGridException{
         try {
-            IFunctionalTest functionalTest = new FunctionalTest();
-            functionalTest.setFunc1((node) -> node.getObstacleValue() == 0);
+            IFunctionalTest functionalTest = FunctionalTestFactory.createFunctionalTest((node) -> node.getObstacleValue() == 0);
             pathFinder = AstarPathFinderFactory.createPathFinder(grid,AstarNodeFactory.createNode(999,999),end,functionalTest).getPathFinder();
         }catch (AstarPathFinderFactoryIllegalArgumentException e){
             throw new AstarNodeNotOnGridException();
