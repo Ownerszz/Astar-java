@@ -6,12 +6,10 @@ import core.Interfaces.IAstarGrid;
 import core.Interfaces.IAstarNode;
 import core.Interfaces.IAstarPathFinder;
 import core.Interfaces.IAstarPlot;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -22,13 +20,13 @@ Standard class. You can make your own class for doing this.
 This class draws the 2D grid.
  */
 public class AstarPlot extends BorderPane implements IAstarPlot {
-    private GridPane gridPane;
+
 
     /*
     Constructor:
     New instance of AstarPlot will initialise with: - A AstarGrid
      */
-    protected AstarPlot() {
+    AstarPlot() {
         super();
 
     }
@@ -42,7 +40,7 @@ public class AstarPlot extends BorderPane implements IAstarPlot {
      */
     @Override
     public Scene drawPath(IAstarGrid grid,IAstarPathFinder pathFinder) {
-        gridPane = new GridPane();
+        GridPane gridPane = new GridPane();
         this.getChildren().add(gridPane);
         gridPane.setMinSize(400, 200);
         gridPane.setPadding(new Insets(10, 10, 10, 10));
@@ -59,25 +57,20 @@ public class AstarPlot extends BorderPane implements IAstarPlot {
                     rectangle.setHeight(10);
                     rectangle.setWidth(10);
                     rectangle.setStroke(Color.BLACK);
-                    rectangle.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent event) {
-                            try {
-                                IAstarNode clickedNode = grid.getNode(_indexX, _indexY);
-                                String nodeIsInOptimalPath = new String();
-                                if (pathFinder.getOptimalPath().contains(clickedNode)){
-                                    nodeIsInOptimalPath = ". Node is in optimal path";
-                                }
-
-                                Alert alert = new Alert(Alert.AlertType.INFORMATION, clickedNode.toString() + nodeIsInOptimalPath);
-                                alert.show();
-                            } catch (AstarNodeNotOnGridException ANNOGE) {
-
-                            }catch ( AstarPathNotFoundException APNFE){
-
+                    rectangle.setOnMouseClicked(event -> {
+                        try {
+                            IAstarNode clickedNode = grid.getNode(_indexX, _indexY);
+                            String nodeIsInOptimalPath = "";
+                            if (pathFinder.getOptimalPath().contains(clickedNode)){
+                                nodeIsInOptimalPath = ". Node is in optimal path";
                             }
 
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION, clickedNode.toString() + nodeIsInOptimalPath);
+                            alert.show();
+                        } catch (AstarNodeNotOnGridException | AstarPathNotFoundException ANNOGE) {
+
                         }
+
                     });
                     if (grid.getNode(xIndex, yIndex).getObstacleValue() > 0) {
                         rectangle.setFill(Color.BLACK);

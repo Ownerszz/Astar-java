@@ -12,7 +12,7 @@ This class is can be used for 2D or more grids.
 public class AstarPathFinder implements IAstarPathFinder {
     private IAstarNode start;
     private IAstarNode end;
-    private ArrayList<IAstarNode> optimalPath;
+
     private ArrayList<IAstarNode> openSet;
     private ArrayList<IAstarNode> closedSet;
     private IAstarGrid grid;
@@ -26,7 +26,7 @@ public class AstarPathFinder implements IAstarPathFinder {
                                                             - A new ArrayList (openSet) containing the nodes that we want to evaluate (is empty at start)
                                                             - A new ArrayList (closedSet) containing the nodes that we already evaluated (is empty at start)
      */
-    protected AstarPathFinder(IAstarNode start, IAstarNode end, IAstarGrid grid) throws AstarNodeNotOnGridException {
+    AstarPathFinder(IAstarNode start, IAstarNode end, IAstarGrid grid) throws AstarNodeNotOnGridException {
         this.start = start;
         this.end = end;
         this.grid = grid;
@@ -35,14 +35,13 @@ public class AstarPathFinder implements IAstarPathFinder {
         this.closedSet = new ArrayList<>();
     }
 
-    protected AstarPathFinder(IAstarGridFactoryResult result) throws AstarNodeNotOnGridException{
+    AstarPathFinder(IAstarGridFactoryResult result) throws AstarNodeNotOnGridException{
        this(result.getStart(),result.getEnd(),result.getGrid());
     }
 
     private void validateStartAndEndNode() throws AstarNodeNotOnGridException {
-        IAstarNode found;
-        found = grid.getNode(start);
-        found = grid.getNode(end);
+       grid.getNode(start);
+       grid.getNode(end);
     }
 
     /*
@@ -96,7 +95,7 @@ public class AstarPathFinder implements IAstarPathFinder {
     @Override
     public ArrayList<IAstarNode> getOptimalPath() throws AstarPathNotFoundException {
         if (pathFound) {
-            this.optimalPath = new ArrayList<>();
+            ArrayList<IAstarNode> optimalPath = new ArrayList<>();
             IAstarNode prev = end;
             optimalPath.add(prev);
             while (prev != start) {

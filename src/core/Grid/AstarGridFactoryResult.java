@@ -11,7 +11,7 @@ public class AstarGridFactoryResult implements core.Interfaces.IAstarGridFactory
     private int rows;
     private int obstacleChance;
 
-    protected AstarGridFactoryResult(IAstarGrid grid,IAstarNode start, IAstarNode end, int cols, int rows, int obstacleChance){
+    AstarGridFactoryResult(IAstarGrid grid, IAstarNode start, IAstarNode end, int cols, int rows, int obstacleChance){
         this.grid = grid;
         this.start = start;
         this.end = end;

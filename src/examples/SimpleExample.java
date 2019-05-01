@@ -1,17 +1,11 @@
 package examples;
 
-import core.CustomExceptions.AstarGridFactoryIllegalArgumentException;
-import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.CustomExceptions.AstarPathFinderFactoryIllegalArgumentException;
 import core.CustomExceptions.AstarPathNotFoundException;
-import core.FunctionalTesting.FunctionalTest;
 import core.FunctionalTesting.FunctionalTestFactory;
-import core.Grid.AstarGridFactory;
 import core.Interfaces.*;
 import core.Node.AstarNodeFactory;
-import core.PathFinding.AstarPathFinder;
 import core.PathFinding.AstarPathFinderFactory;
-import core.Plot.AstarPlot;
 import core.Plot.AstarPlotFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;

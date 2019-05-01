@@ -12,7 +12,7 @@ public class FunctionalTest implements IFunctionalTest {
     private IFunc3<IAstarNode,IAstarNode,IAstarNode,Boolean> func3;
     private int argumentCounter = 0;
 
-    protected FunctionalTest(){
+    FunctionalTest(){
 
     }
 

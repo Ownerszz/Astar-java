@@ -17,7 +17,7 @@ public class AstarNode implements IAstarNode {
     private int obstacleValue;
 
 
-    protected AstarNode(int x, int y, int obstacleValue) {
+    AstarNode(int x, int y, int obstacleValue) {
         this.x = x;
         this.y = y;
         this.obstacleValue = obstacleValue;
@@ -112,7 +112,7 @@ public class AstarNode implements IAstarNode {
                         if (!(openSet.contains(neighbor) || closedSet.contains(neighbor))) {
                             neighbors.add(neighbor);
                         } else {
-                            if (openSet.stream().filter(node -> node.equals(neighbor)).findFirst().isPresent()) {
+                            if (openSet.stream().anyMatch(node -> node.equals(neighbor))) {
                                 IAstarNode found = openSet.stream().filter(node -> node.equals(neighbor)).findFirst().get();
                                 if (neighbor.getCost() < found.getCost()) {
                                     found.setCost(neighbor.getCost());
@@ -126,9 +126,7 @@ public class AstarNode implements IAstarNode {
                     } else {
                         closedSet.add(neighbor);
                     }
-                } catch (ArrayIndexOutOfBoundsException AIOOBE) {
-
-                } catch (AstarNodeNotOnGridException ANNOGE) {
+                } catch (ArrayIndexOutOfBoundsException | AstarNodeNotOnGridException AIOOBE) {
 
                 }
 

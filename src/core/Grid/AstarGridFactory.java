@@ -4,6 +4,7 @@ import core.CustomExceptions.AstarGridFactoryIllegalArgumentException;
 import core.CustomExceptions.AstarNodeFactoryIllegalArgumentException;
 import core.Interfaces.IAstarGridFactoryResult;
 import core.Interfaces.IAstarNode;
+import core.Node.AstarNode;
 import core.Node.AstarNodeFactory;
 
 import java.util.ArrayList;
@@ -27,12 +28,7 @@ public final class AstarGridFactory {
                     node = endNode;
                 }else {
                     if (random.nextInt(100) < obstacleChance) {
-                        if (i == startNode.getX() && j == startNode.getY()) {
-                        } else if (i == endNode.getX() && j == endNode.getY()) {
-
-                        } else {
                             node = AstarNodeFactory.createNode(i, j, random.nextInt(maxObstacleValue+1));
-                        }
                     }
                 }
                 grid.get(i).add(node);
