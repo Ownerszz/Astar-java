@@ -58,9 +58,7 @@ public class BooleanGridToIAstarNodeGridExample extends Application {
 
         } catch (AstarPathNotFoundException APNFE) {
             System.out.println("Path not found");
-        }catch (AstarPathFinderFactoryIllegalArgumentException APFFIAE){
-
-        }catch (AstarGridFactoryIllegalArgumentException AGFIAE){
+        }catch (AstarPathFinderFactoryIllegalArgumentException | AstarGridFactoryIllegalArgumentException APFFIAE){
 
         }
     }

@@ -3,7 +3,6 @@ package core.Grid;
 import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.Interfaces.IAstarGrid;
 import core.Interfaces.IAstarNode;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +18,7 @@ public class AstarGrid implements IAstarGrid {
         this.grid = grid;
     }
 
-    protected AstarGrid(ArrayList<ArrayList<IAstarNode>> grid) {
+    AstarGrid(ArrayList<ArrayList<IAstarNode>> grid) {
         this.grid = grid.stream().map(u -> u.toArray(new IAstarNode[grid.size()])).toArray(IAstarNode[][]::new);
     }
 
