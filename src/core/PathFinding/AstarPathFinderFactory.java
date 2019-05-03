@@ -47,10 +47,10 @@ public final class AstarPathFinderFactory {
 
     }
     private static int calculateCols(IAstarGrid grid){
-        return (int) Arrays.stream(grid.getGrid()).filter(Objects::nonNull).count() - 1;
+        return (int) Arrays.stream(grid.getGrid()).filter(Objects::nonNull).count();
     }
     private static int calculateRows(IAstarGrid grid){
-        return (int) Arrays.stream(grid.getGrid()[0]).filter(Objects::nonNull).count() - 1;
+        return (int) Arrays.stream(grid.getGrid()[0]).filter(Objects::nonNull).count();
     }
     private static int calculateObstacleChance(IAstarGrid grid){
         int amountOfObstacleNodes = 0;

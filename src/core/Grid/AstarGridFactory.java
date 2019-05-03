@@ -2,13 +2,12 @@ package core.Grid;
 
 import core.CustomExceptions.AstarGridFactoryIllegalArgumentException;
 import core.CustomExceptions.AstarNodeFactoryIllegalArgumentException;
+import core.CustomExceptions.AstarNodeNotOnGridException;
 import core.Interfaces.IAstarGridFactoryResult;
 import core.Interfaces.IAstarNode;
-import core.Node.AstarNode;
 import core.Node.AstarNodeFactory;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public final class AstarGridFactory {
     public static IAstarGridFactoryResult createGrid(IAstarNode startNode, IAstarNode endNode, int columns, int rows, int obstacleChance, int maxObstacleValue) throws AstarGridFactoryIllegalArgumentException{
@@ -67,5 +66,37 @@ public final class AstarGridFactory {
         }
 
 
+    }
+
+
+    public static IAstarGridFactoryResult createGrid(ArrayList<ArrayList<Boolean>> booleanGrid, IAstarNode startNode, IAstarNode endNode) throws AstarGridFactoryIllegalArgumentException{
+        Boolean[][] grid =  booleanGrid.stream().map(u -> u.toArray(new Boolean[booleanGrid.size()])).toArray(Boolean[][]::new);
+        return createGrid(grid,startNode,endNode);
+    }
+    public static IAstarGridFactoryResult createGrid(Boolean[][] booleanGrid, IAstarNode startNode, IAstarNode endNode) throws AstarGridFactoryIllegalArgumentException{
+        int cols = calculateCols(booleanGrid);
+        int rows = calculateRows(booleanGrid);
+        IAstarGridFactoryResult result = createGrid(startNode,endNode,cols,rows,0,0);
+        for (int i = 0; i < cols ; i++) {
+            for (int j = 0; j < rows; j++) {
+                if (i == cols - 1){
+                    int a = 1;
+                }
+                if (booleanGrid[i][j]){
+                    try {
+                        result.getGrid().getNode(i,j).setObstacleValue(1);
+                    }catch (AstarNodeNotOnGridException ANNOGE){
+                        throw new AstarGridFactoryIllegalArgumentException();
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    private static int calculateCols(Boolean[][] grid){
+        return (int) Arrays.stream(grid).filter(Objects::nonNull).count();
+    }
+    private static int calculateRows(Boolean[][]  grid){
+        return (int) Arrays.stream(grid[0]).filter(Objects::nonNull).count();
     }
 }

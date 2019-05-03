@@ -36,7 +36,7 @@ public class AdvancedRandomExample extends Application {
             IAstarPathFinderFactoryResult astarPathFinderFactoryResult = AstarPathFinderFactory.createPathFinder(astarGridFactoryResult,functionalTest);
             primaryStage.setMaximized(true);
             primaryStage.setScene(AstarPlotFactory.createAstarPlot(astarPathFinderFactoryResult));
-            primaryStage.titleProperty().setValue(String.format("Total nodes in path: %d", astarPathFinderFactoryResult.getOptimalPath().size()));
+            primaryStage.titleProperty().setValue(String.format("Grid of size (%d x %d) .Total nodes in path: %d",astarPathFinderFactoryResult.getCols(),astarPathFinderFactoryResult.getRows() ,astarPathFinderFactoryResult.getOptimalPath().size()));
             primaryStage.show();
         } catch (AstarPathNotFoundException APNFE) {
             System.out.println("Path not found");

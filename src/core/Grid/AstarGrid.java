@@ -29,7 +29,7 @@ public class AstarGrid implements IAstarGrid {
 
     @Override
     public IAstarNode getNode(int x, int y) throws AstarNodeNotOnGridException {
-        if (x > Arrays.stream(grid).filter(Objects::nonNull).count() - 1 || y > Arrays.stream(grid[0]).filter(Objects::nonNull).count() - 1) {
+        if (x > Arrays.stream(grid).filter(Objects::nonNull).count() -1  || y > Arrays.stream(grid[0]).filter(Objects::nonNull).count() -1) {
             throw new AstarNodeNotOnGridException();
         }
         return grid[x][y];
