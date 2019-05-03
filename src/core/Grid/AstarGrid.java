@@ -15,11 +15,11 @@ This class contains the nodes. This class is for the 2D grids
 public class AstarGrid implements IAstarGrid {
     private IAstarNode[][] grid;
 
-    public AstarGrid(IAstarNode[][] grid) {
+    protected AstarGrid(IAstarNode[][] grid) {
         this.grid = grid;
     }
 
-    public AstarGrid(ArrayList<ArrayList<IAstarNode>> grid) {
+    protected AstarGrid(ArrayList<ArrayList<IAstarNode>> grid) {
         this.grid = grid.stream().map(u -> u.toArray(new IAstarNode[grid.size()])).toArray(IAstarNode[][]::new);
     }
 
