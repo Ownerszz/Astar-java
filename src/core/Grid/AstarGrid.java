@@ -23,10 +23,6 @@ public class AstarGrid implements IAstarGrid {
         this.grid = grid.stream().map(u -> u.toArray(new IAstarNode[grid.size()])).toArray(IAstarNode[][]::new);
     }
 
-    public static <T> AstarGrid convert2DArrayListToGrid(ArrayList<ArrayList<T>> inputList) {
-        throw new NotImplementedException();
-    }
-
     @Override
     public IAstarNode getNode(int x, int y) throws AstarNodeNotOnGridException {
         if (x > Arrays.stream(grid).filter(Objects::nonNull).count() -1  || y > Arrays.stream(grid[0]).filter(Objects::nonNull).count() -1) {
