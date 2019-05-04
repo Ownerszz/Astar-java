@@ -17,7 +17,7 @@ public class AstarPathFinderFactoryResult implements IAstarPathFinderFactoryResu
     private int rows;
     private int obstacleChance;
 
-    public AstarPathFinderFactoryResult(IAstarPathFinder pathFinder,ArrayList<IAstarNode> optimalPath, IAstarGrid grid, IAstarNode start, IAstarNode end, int cols, int rows, int obstacleChance) {
+     AstarPathFinderFactoryResult(IAstarPathFinder pathFinder,ArrayList<IAstarNode> optimalPath, IAstarGrid grid, IAstarNode start, IAstarNode end, int cols, int rows, int obstacleChance) {
         this.pathFinder =pathFinder;
         this.optimalPath = optimalPath;
         this.grid = grid;
