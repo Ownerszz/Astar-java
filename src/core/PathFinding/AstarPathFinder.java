@@ -55,6 +55,11 @@ public class AstarPathFinder implements IAstarPathFinder {
 
     @Override
     public void findPath(IFunctionalTest conditionForAddingNeighbors, int jumpUpTo) throws AstarPathNotFoundException {
+        findPath(conditionForAddingNeighbors,jumpUpTo,true);
+    }
+
+    @Override
+    public void findPath(IFunctionalTest conditionForAddingNeighbors, int jumpUpTo, boolean allowDiagonalMoves) throws AstarPathNotFoundException {
 
         openSet.add(start);
         start.setPreviousNode(start);
@@ -72,7 +77,7 @@ public class AstarPathFinder implements IAstarPathFinder {
                 return;
             }
             closedSet.add(currentNode);
-            currentNode.addNeighbors(grid, end, openSet, closedSet, conditionForAddingNeighbors, jumpUpTo);
+            currentNode.addNeighbors(grid, end, openSet, closedSet, conditionForAddingNeighbors, jumpUpTo,allowDiagonalMoves);
             openSet.remove(currentNode);
 
             for (IAstarNode neighbor : currentNode.getNeighbors()) {

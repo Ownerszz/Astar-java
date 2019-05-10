@@ -26,6 +26,7 @@ public interface IAstarNode {
     @Override
     boolean equals(Object obj);
 
+    void addNeighbors(IAstarGrid grid, IAstarNode end, ArrayList<IAstarNode> openSet, ArrayList<IAstarNode> closedSet, IFunctionalTest conditionToAdd, int jumpUpTo, boolean allowDiagonalMoves);
     void addNeighbors(IAstarGrid grid, IAstarNode end, ArrayList<IAstarNode> openSet, ArrayList<IAstarNode> closedSet, IFunctionalTest conditionToAdd, int jumpUpTo);
 
 }

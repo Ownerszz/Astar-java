@@ -13,24 +13,24 @@ import java.util.Objects;
 
 public final class AstarPathFinderFactory {
     public static IAstarPathFinderFactoryResult createPathFinder(IFunctionalTest functionalTest,IAstarNode start, IAstarNode end, int cols, int rows, int obstacleChance, int maxObstacleValue) throws AstarPathFinderFactoryIllegalArgumentException, AstarPathNotFoundException {
-        return createPathFinder(functionalTest,start,end, cols, rows, obstacleChance, maxObstacleValue,0);
+        return createPathFinder(functionalTest,start,end, cols, rows, obstacleChance, maxObstacleValue,0,true);
     }
-    public static IAstarPathFinderFactoryResult createPathFinder(IFunctionalTest functionalTest,IAstarNode start, IAstarNode end, int cols, int rows, int obstacleChance, int maxObstacleValue ,int jumpUpTo)  throws AstarPathFinderFactoryIllegalArgumentException, AstarPathNotFoundException {
+    public static IAstarPathFinderFactoryResult createPathFinder(IFunctionalTest functionalTest,IAstarNode start, IAstarNode end, int cols, int rows, int obstacleChance, int maxObstacleValue ,int jumpUpTo, boolean allowDiagonalMoves)  throws AstarPathFinderFactoryIllegalArgumentException, AstarPathNotFoundException {
             try {
                 IAstarGridFactoryResult gridFactoryResult = AstarGridFactory.createGrid(start,end,cols,rows,obstacleChance,maxObstacleValue);
-                return createPathFinder(gridFactoryResult,functionalTest,jumpUpTo);
+                return createPathFinder(gridFactoryResult,functionalTest,jumpUpTo, allowDiagonalMoves);
             }catch (AstarGridFactoryIllegalArgumentException AGFIAE){
                 throw new AstarPathFinderFactoryIllegalArgumentException();
             }
     }
 
     public static IAstarPathFinderFactoryResult createPathFinder(IAstarGrid astarGrid,IAstarNode start, IAstarNode end, IFunctionalTest functionalTest) throws AstarPathFinderFactoryIllegalArgumentException, AstarPathNotFoundException {
-       return createPathFinder(astarGrid,start,end,functionalTest,0);
+       return createPathFinder(astarGrid,start,end,functionalTest,0,true);
     }
-    public static IAstarPathFinderFactoryResult createPathFinder(IAstarGrid astarGrid,IAstarNode start, IAstarNode end, IFunctionalTest functionalTest,int jumpUpTo) throws AstarPathFinderFactoryIllegalArgumentException, AstarPathNotFoundException {
+    public static IAstarPathFinderFactoryResult createPathFinder(IAstarGrid astarGrid,IAstarNode start, IAstarNode end, IFunctionalTest functionalTest,int jumpUpTo, boolean allowDiagonalMoves) throws AstarPathFinderFactoryIllegalArgumentException, AstarPathNotFoundException {
                 try {
                     IAstarPathFinder pathFinder = new AstarPathFinder(start,end,astarGrid);
-                    ArrayList<IAstarNode> optimalPath = buildOptimalPath(pathFinder,functionalTest,jumpUpTo);
+                    ArrayList<IAstarNode> optimalPath = buildOptimalPath(pathFinder,functionalTest,jumpUpTo,allowDiagonalMoves);
                     return new AstarPathFinderFactoryResult(
                             pathFinder,
                             optimalPath,
@@ -61,12 +61,12 @@ public final class AstarPathFinderFactory {
     }
 
     public static IAstarPathFinderFactoryResult createPathFinder(IAstarGridFactoryResult astarGridFactoryResult, IFunctionalTest functionalTest) throws AstarPathFinderFactoryIllegalArgumentException, AstarPathNotFoundException{
-        return createPathFinder(astarGridFactoryResult, functionalTest,0);
+        return createPathFinder(astarGridFactoryResult, functionalTest,0,true);
     }
-    public static IAstarPathFinderFactoryResult createPathFinder(IAstarGridFactoryResult astarGridFactoryResult, IFunctionalTest functionalTest, int jumpUpTo) throws AstarPathFinderFactoryIllegalArgumentException, AstarPathNotFoundException{
+    public static IAstarPathFinderFactoryResult createPathFinder(IAstarGridFactoryResult astarGridFactoryResult, IFunctionalTest functionalTest, int jumpUpTo, boolean allowDiagonalMoves) throws AstarPathFinderFactoryIllegalArgumentException, AstarPathNotFoundException{
             try {
                 IAstarPathFinder pathFinder = new AstarPathFinder(astarGridFactoryResult);
-                ArrayList<IAstarNode> optimalPath = buildOptimalPath(pathFinder,functionalTest,jumpUpTo);
+                ArrayList<IAstarNode> optimalPath = buildOptimalPath(pathFinder,functionalTest,jumpUpTo,allowDiagonalMoves);
                 return new AstarPathFinderFactoryResult(
                         pathFinder,
                         optimalPath,
@@ -81,8 +81,8 @@ public final class AstarPathFinderFactory {
                 throw new AstarPathFinderFactoryIllegalArgumentException();
             }
     }
-    private static ArrayList<IAstarNode> buildOptimalPath(IAstarPathFinder pathFinder,IFunctionalTest functionalTest, int jumpUpTo) throws AstarPathNotFoundException{
-        pathFinder.findPath(functionalTest,jumpUpTo);
+    private static ArrayList<IAstarNode> buildOptimalPath(IAstarPathFinder pathFinder,IFunctionalTest functionalTest, int jumpUpTo, boolean allowDiagonalMoves) throws AstarPathNotFoundException{
+        pathFinder.findPath(functionalTest,jumpUpTo,allowDiagonalMoves);
         return pathFinder.getOptimalPath();
     }
 }

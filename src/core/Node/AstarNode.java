@@ -91,24 +91,36 @@ public class AstarNode implements IAstarNode {
         }    
     }
 
-
     @Override
     public void addNeighbors(IAstarGrid grid, IAstarNode end, ArrayList<IAstarNode> openSet, ArrayList<IAstarNode> closedSet, IFunctionalTest conditionToAdd, int jumpUpTo) {
+        addNeighbors(grid,end,openSet,closedSet,conditionToAdd,jumpUpTo,true);
+    }
+
+    @Override
+    public void addNeighbors(IAstarGrid grid, IAstarNode end, ArrayList<IAstarNode> openSet, ArrayList<IAstarNode> closedSet, IFunctionalTest conditionToAdd, int jumpUpTo, boolean allowDiagonalMoves) {
         for (int i = this.getX() - 1 - jumpUpTo; i < this.getX() + 2 + jumpUpTo; i++) {
             for (int j = this.getY() - 1 - jumpUpTo; j < this.getY() + 2 + jumpUpTo; j++) {
+
                 try {
-                    Boolean passed = false;
+                    Boolean neighborPassedTest = false;
                     IAstarNode neighbor = grid.getNode(i, j);
+                    if (!allowDiagonalMoves){
+                        IAstarNode current = this;
+                        boolean test = !(neighbor.getX() == this.getX() || neighbor.getY() == this.getY());
+                        if (!(neighbor.getX() == this.getX() || neighbor.getY() == this.getY())){
+                            break;
+                        }
+                    }
                     neighbor.calculateCost(this.getCost(), end);
                     if (conditionToAdd.getArgumentCounter() == 1){
-                        passed = conditionToAdd.getFunc1().apply(neighbor);
+                        neighborPassedTest = conditionToAdd.getFunc1().apply(neighbor);
                     }else if (conditionToAdd.getArgumentCounter() == 2){
-                        passed = conditionToAdd.getFunc2().apply(this,neighbor);
+                        neighborPassedTest = conditionToAdd.getFunc2().apply(this,neighbor);
                     } else if (conditionToAdd.getArgumentCounter() == 3){
-                        passed = conditionToAdd.getFunc3().apply(this.getPreviousNode(),this,neighbor);
+                        neighborPassedTest = conditionToAdd.getFunc3().apply(this.getPreviousNode(),this,neighbor);
                     }
 
-                    if (passed) {
+                    if (neighborPassedTest) {
                         if (!(openSet.contains(neighbor) || closedSet.contains(neighbor))) {
                             neighbors.add(neighbor);
                         } else {

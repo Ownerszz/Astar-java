@@ -13,6 +13,7 @@ public interface IAstarPathFinder {
 
                                                     Throws:     - AstarPathNotFoundException
          */
+    void findPath(IFunctionalTest conditionForAddingNeighbors, int jumpUpTo, boolean allowDiagonalMoves) throws AstarPathNotFoundException;
     void findPath(IFunctionalTest conditionForAddingNeighbors, int jumpUpTo) throws AstarPathNotFoundException;
     /*
         Method getOptimalPath:

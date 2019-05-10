@@ -89,6 +89,7 @@ public class AstarPlot extends BorderPane implements IAstarPlot {
             yIndex = 0;
             xIndex++;
         }
+
         try {
             for (IAstarNode node : pathFinder.getOptimalPath()) {
                 for (Node e : gridPane.getChildren()) {
@@ -117,5 +118,54 @@ public class AstarPlot extends BorderPane implements IAstarPlot {
         return new Scene(this);
     }
 
+    public Scene showGrid(IAstarGrid grid){
+        GridPane gridPane = new GridPane();
+        this.getChildren().add(gridPane);
+        gridPane.setMinSize(400, 200);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+
+        gridPane.setGridLinesVisible(true);
+        int xIndex = 0;
+        int yIndex = 0;
+        for (IAstarNode[] x : grid.getGrid()) {
+            for (IAstarNode y : x) {
+                try {
+                    final int _indexX = xIndex;
+                    final int _indexY = yIndex;
+                    Rectangle rectangle = new Rectangle();
+                    rectangle.setHeight(10);
+                    rectangle.setWidth(10);
+                    rectangle.setStroke(Color.BLACK);
+                    rectangle.setOnMouseClicked(event -> {
+                        try {
+                            IAstarNode clickedNode = grid.getNode(_indexX, _indexY);
+
+
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION, clickedNode.toString() );
+                            alert.show();
+                        } catch (AstarNodeNotOnGridException e) {
+
+                        }
+
+                    });
+                    if (grid.getNode(xIndex, yIndex).getObstacleValue() > 0) {
+                        rectangle.setFill(Color.BLACK);
+                    } else {
+                        rectangle.setFill(Color.WHITE);
+                    }
+
+
+                    gridPane.add(rectangle, xIndex, yIndex);
+                } catch (AstarNodeNotOnGridException ANNOGE) {
+
+                }
+
+                yIndex++;
+            }
+            yIndex = 0;
+            xIndex++;
+        }
+        return new Scene(this);
+    }
 
 }
