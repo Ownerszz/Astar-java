@@ -4,12 +4,10 @@ import core.CustomExceptions.AstarGridFactoryIllegalArgumentException;
 import core.CustomExceptions.AstarPathFinderFactoryIllegalArgumentException;
 import core.CustomExceptions.AstarPathNotFoundException;
 import core.FunctionalTesting.FunctionalTestFactory;
-import core.Grid.AstarGrid;
 import core.Grid.AstarGridFactory;
 import core.Interfaces.*;
 import core.Node.AstarNodeFactory;
 import core.PathFinding.AstarPathFinderFactory;
-import core.Plot.AstarPlot;
 import core.Plot.AstarPlotFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -17,7 +15,7 @@ import javafx.stage.Stage;
 public class NoDiagonalMovesExample extends Application {
     private static final int COLS = 160;
     private static final int ROWS = 90;
-    private static final int OBSTACLE_CHANCE = 1;
+    private static final int OBSTACLE_CHANCE = 20;
     /*
      * In this example we use a IFunc1 to check the neighbor is a wall.
      * This example simulates simple walls.
@@ -27,12 +25,10 @@ public class NoDiagonalMovesExample extends Application {
      * */
     @Override
     public void start(Stage primaryStage) {
-        IAstarGrid grid = null;
         try {
             //Create a FunctionalTest instance
             IFunctionalTest functionalTest = FunctionalTestFactory.createFunctionalTest((node) -> node.getObstacleValue() == 0);
             IAstarGridFactoryResult result = AstarGridFactory.createGrid(AstarNodeFactory.createNode(0,0),AstarNodeFactory.createNode(COLS-1,ROWS-1),COLS,ROWS,OBSTACLE_CHANCE,999);
-            grid = result.getGrid();
 
             //Create a AstarPathFinderFactoryResult which will contain a IAstarGridFactoryResult equivalent, the optimalPath, the pathfinder.
             IAstarPathFinderFactoryResult astarPathFinderFactoryResult = AstarPathFinderFactory.createPathFinder(result,functionalTest, 0,false);
@@ -44,10 +40,6 @@ public class NoDiagonalMovesExample extends Application {
 
         } catch (AstarPathNotFoundException APNFE) {
             System.out.println("Path not found");
-            primaryStage.setMaximized(true);
-            primaryStage.setScene(AstarPlotFactory.showGrid(grid));
-            primaryStage.show();
-
         }catch (AstarPathFinderFactoryIllegalArgumentException APFFIAE){
 
         }catch (AstarGridFactoryIllegalArgumentException e){

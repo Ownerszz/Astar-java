@@ -7,10 +7,6 @@ import core.Interfaces.IAstarPlot;
 import javafx.scene.Scene;
 
 public final class AstarPlotFactory {
-    public static Scene showGrid(IAstarGrid grid){
-        IAstarPlot astarPlot = new AstarPlot();
-        return ((AstarPlot) astarPlot).showGrid(grid);
-    }
     public static Scene createAstarPlot(IAstarGrid grid, IAstarPathFinder pathFinder){
         IAstarPlot astarPlot = new AstarPlot();
         return astarPlot.drawPath(grid,pathFinder);
