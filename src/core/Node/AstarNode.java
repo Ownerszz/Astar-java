@@ -112,7 +112,6 @@ public class AstarNode implements IAstarNode {
                         } else if (conditionToAdd.getArgumentCounter() == 3) {
                             neighborPassedTest = conditionToAdd.getFunc3().apply(this.getPreviousNode(), this, neighbor);
                         }
-
                         if (neighborPassedTest) {
                             if (!(openSet.contains(neighbor) || closedSet.contains(neighbor))) {
                                 neighbors.add(neighbor);
