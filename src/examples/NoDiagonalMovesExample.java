@@ -40,9 +40,7 @@ public class NoDiagonalMovesExample extends Application {
 
         } catch (AstarPathNotFoundException APNFE) {
             System.out.println("Path not found");
-        }catch (AstarPathFinderFactoryIllegalArgumentException APFFIAE){
-
-        }catch (AstarGridFactoryIllegalArgumentException e){
+        }catch (AstarPathFinderFactoryIllegalArgumentException | AstarGridFactoryIllegalArgumentException APFFIAE){
 
         }
     }
